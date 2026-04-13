@@ -223,3 +223,43 @@
   animation: shooting-star 5s ease-in-out infinite;
   animation-delay: 2s;
 }
+
+/* Custom scrollbar styling with theme colors */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #09111d;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0d1b2a;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #162133;
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #09111d var(--background);
+}
+
+/* Dark theme scrollbar adjustments */
+.dark ::-webkit-scrollbar-track {
+  background: var(--navy);
+}
+
+.dark * {
+  scrollbar-color: #09111d var(--navy);
+}
