@@ -36,6 +36,19 @@ export function Navbar() {
   const links = navLinks[language]
   const t = content[language]
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault()
+    const targetElement = document.getElementById(targetId.replace('#', ''))
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+    // Close mobile menu if open
+    setIsOpen(false)
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
       <div className="container mx-auto px-4">
@@ -63,7 +76,8 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-foreground/80 hover:text-gold transition-colors"
+                onClick={(e) => handleSmoothScroll(e, link.href)}
+                className="text-foreground/80 hover:text-gold transition-colors cursor-pointer"
               >
                 {link.label}
               </a>
@@ -94,8 +108,8 @@ export function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-foreground/80 hover:text-gold transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleSmoothScroll(e, link.href)}
+                  className="text-foreground/80 hover:text-gold transition-colors py-2 cursor-pointer"
                 >
                   {link.label}
                 </a>
