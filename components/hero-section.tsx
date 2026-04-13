@@ -160,7 +160,7 @@ export function HeroSection() {
 
         {/* Title */}
         <h1 
-          className="text-5xl md:text-7xl font-bold mb-6 tracking-wide bg-gradient-to-r from-amber-200 via-gold to-amber-300 bg-clip-text text-transparent drop-shadow-lg"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-wide bg-gradient-to-r from-amber-200 via-gold to-amber-300 bg-clip-text text-transparent drop-shadow-lg leading-normal"
           style={{ 
             fontFamily: language === "fa" 
               ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
