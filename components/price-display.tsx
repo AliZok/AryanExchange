@@ -19,7 +19,7 @@ const mockPrices: PriceItem[] = [
     symbol: "AMD/IRR",
     name: "Dram per Iranian Toman",
     nameFa: "-rams iranian",
-    price: 1.05,
+    price: 0,
     change: 0.3,
     icon: <Coins className="w-5 h-5" />
   },
@@ -128,7 +128,8 @@ export function PriceDisplay() {
                         : "inherit" 
                     }}
                   >
-                    {item.symbol.includes("USD") && !item.symbol.includes("BTC") && !item.symbol.includes("TRX") && !item.symbol.includes("LTC") && !item.symbol.includes("USDT") ? "IRR " : 
+                    {item.symbol === "USD/IRR" ? "IRR " : 
+                     item.symbol === "USD/AMD" ? "AMD " : 
                      item.symbol.includes("/USD") ? "$" : ""}
                     {formatPrice(item.price, item.symbol)}
                   </div>
