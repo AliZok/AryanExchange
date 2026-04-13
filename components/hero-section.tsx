@@ -102,7 +102,7 @@ export function HeroSection() {
       {/* Galaxy/Space Background Elements */}
       <div className="absolute inset-0 z-[1]">
         {/* Nebula gradients */}
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#0a1628]/90 via-transparent to-[#1a0a28]/30" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#09111d]/90 via-transparent to-[#1a0a28]/30" />
         <div className="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[150px]" />
         <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-purple-900/20 rounded-full blur-[120px]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-amber-900/10 rounded-full blur-[200px]" />
