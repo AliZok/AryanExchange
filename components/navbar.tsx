@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Shield, Menu, X } from "lucide-react"
+import { Shield, Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
@@ -22,11 +22,11 @@ const navLinks = {
 const content = {
   en: {
     logo: "Aryan Exchange",
-    cta: "Get Rates",
+    cta: "Call Us",
   },
   fa: {
     logo: "صرافی آرین",
-    cta: "دریافت نرخ",
+    cta: "تماس با ما",
   },
 }
 
@@ -35,6 +35,10 @@ export function Navbar() {
   const { language } = useLanguage()
   const links = navLinks[language]
   const t = content[language]
+
+  const handleCall = () => {
+    window.location.href = "tel:+15551234567"
+  }
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault()
@@ -83,7 +87,11 @@ export function Navbar() {
               </a>
             ))}
             <LanguageToggle />
-            <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold">
+            <Button 
+              onClick={handleCall}
+              className="bg-gold hover:bg-gold-dark text-navy font-semibold flex items-center gap-2"
+            >
+              <Phone className="w-4 h-4" />
               {t.cta}
             </Button>
           </div>
@@ -114,7 +122,11 @@ export function Navbar() {
                   {link.label}
                 </a>
               ))}
-              <Button className="bg-gold hover:bg-gold-dark text-navy font-semibold w-full mt-2">
+              <Button 
+                onClick={handleCall}
+                className="bg-gold hover:bg-gold-dark text-navy font-semibold w-full mt-2 flex items-center justify-center gap-2"
+              >
+                <Phone className="w-4 h-4" />
                 {t.cta}
               </Button>
             </div>
