@@ -20,14 +20,14 @@ const mockPrices: PriceItem[] = [
     name: "Dram per Iranian Toman",
     nameFa: "-rams iranian",
     price: 0,
-    change: 0.3,
+    change: 0,
     icon: <Coins className="w-5 h-5" />
   },
   {
     symbol: "USD/AMD",
     name: "Dollar per Dram",
     nameFa: "dollar rams",
-    price: 384.62,
+    price: 0,
     change: -0.1,
     icon: <DollarSign className="w-5 h-5" />
   },
@@ -35,7 +35,7 @@ const mockPrices: PriceItem[] = [
     symbol: "USD/IRR",
     name: "Dollar per Iranian Rial",
     nameFa: "dollar iranian",
-    price: 0.000024,
+    price: 0,
     change: 0.2,
     icon: <DollarSign className="w-5 h-5" />
   },
@@ -43,7 +43,7 @@ const mockPrices: PriceItem[] = [
     symbol: "BTC/USD",
     name: "Bitcoin per Dollar",
     nameFa: "bitcoin dollar",
-    price: 67500,
+    price: 0,
     change: 2.3,
     icon: <Bitcoin className="w-5 h-5" />
   },
@@ -51,7 +51,7 @@ const mockPrices: PriceItem[] = [
     symbol: "TRX/USD",
     name: "TRON per Dollar",
     nameFa: "tron dollar",
-    price: 0.16,
+    price: 0,
     change: 1.2,
     icon: <Coins className="w-5 h-5" />
   },
@@ -59,7 +59,7 @@ const mockPrices: PriceItem[] = [
     symbol: "LTC/USD",
     name: "Litecoin per Dollar",
     nameFa: "litecoin dollar",
-    price: 72.50,
+    price: 0,
     change: -0.8,
     icon: <Coins className="w-5 h-5" />
   },
@@ -67,7 +67,7 @@ const mockPrices: PriceItem[] = [
     symbol: "USDT/USD",
     name: "Tether per Dollar",
     nameFa: "tether dollar",
-    price: 1.00,
+    price: 0,
     change: 0.01,
     icon: <Coins className="w-5 h-5" />
   }
@@ -77,18 +77,44 @@ export function PriceDisplay() {
   const { language, isRTL } = useLanguage()
   const [prices, setPrices] = useState(mockPrices)
 
-  // Simulate price updates
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setPrices(prevPrices => 
-        prevPrices.map(price => ({
-          ...price,
-          price: price.price * (1 + (Math.random() - 0.5) * 0.002),
-          change: price.change + (Math.random() - 0.5) * 0.1
-        }))
+  // Fetch real crypto prices from CoinGecko API
+  const fetchCryptoPrices = async () => {
+    try {
+      const response = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tron,litecoin,tether&vs_currencies=usd&include_24hr_change=true'
       )
-    }, 5000)
+      const data = await response.json()
+      
+      setPrices(prevPrices => 
+        prevPrices.map(price => {
+          // Map symbol to correct CoinGecko ID
+          let cryptoId = null
+          if (price.symbol.includes('BTC')) cryptoId = 'bitcoin'
+          else if (price.symbol.includes('TRX')) cryptoId = 'tron'
+          else if (price.symbol.includes('LTC')) cryptoId = 'litecoin'
+          else if (price.symbol.includes('USDT')) cryptoId = 'tether'
+          
+          const cryptoData = cryptoId ? data[cryptoId] : null
+          
+          if (cryptoData) {
+            return {
+              ...price,
+              price: cryptoData.usd,
+              change: cryptoData.usd_24h_change || 0
+            }
+          }
+          return price
+        })
+      )
+    } catch (error) {
+      console.error('Failed to fetch crypto prices:', error)
+    }
+  }
 
+  // Initial fetch and periodic updates
+  useEffect(() => {
+    fetchCryptoPrices()
+    const interval = setInterval(fetchCryptoPrices, 60000) // Update every minute
     return () => clearInterval(interval)
   }, [])
 
