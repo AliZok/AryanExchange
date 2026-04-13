@@ -27,7 +27,7 @@ const content = {
 }
 
 // Matrix rain characters
-const matrixChars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン$¥€£₿"
+const matrixChars = "01$¥€£₿"
 
 export function HeroSection() {
   const { language, isRTL } = useLanguage()
