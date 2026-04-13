@@ -35,6 +35,17 @@ export function HeroSection() {
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
+    e.preventDefault()
+    const targetElement = document.getElementById(targetId)
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -196,6 +207,7 @@ export function HeroSection() {
             size="lg" 
             variant="outline" 
             className="border-gold/50 text-gold hover:bg-gold/10 hover:text-gold hover:border-gold/70 px-8 py-6 text-lg backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(201,162,39,0.1)]"
+            onClick={(e) => handleSmoothScroll(e, 'services')}
           >
             <Globe className={`${isRTL ? "ml-2" : "mr-2"} w-5 h-5`} />
             {t.cta2}
