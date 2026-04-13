@@ -10,12 +10,12 @@ const navLinks = {
   en: [
     { href: "#services", label: "Services" },
     { href: "#about", label: "About" },
-    { href: "#contact", label: "Contact" },
+    { href: "#visit", label: "Visit Us" },
   ],
   fa: [
     { href: "#services", label: "خدمات" },
     { href: "#about", label: "درباره ما" },
-    { href: "#contact", label: "تماس" },
+    { href: "#visit", label: "به ما سر بزنید" },
   ],
 }
 

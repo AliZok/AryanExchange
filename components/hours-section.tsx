@@ -47,7 +47,7 @@ export function HoursSection() {
   const fontStyle = language === "fa" ? { fontFamily: IRAN_SANS_FONT } : {}
 
   return (
-    <section id="contact" className="py-24 relative">
+    <section id="visit" className="py-24 relative">
       {/* Background Decoration */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
       
