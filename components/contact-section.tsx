@@ -99,7 +99,16 @@ export function ContactSection() {
                   <p className="font-medium text-foreground" style={fontStyle}>
                     {language === "fa" ? "ایمیل" : "Email"}
                   </p>
-                  <p className="text-muted-foreground">{t.contactInfo.email}</p>
+                  <a 
+                    href={`mailto:${t.contactInfo.email}`}
+                    className="text-muted-foreground hover:text-gold transition-colors cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      window.location.href = `mailto:${t.contactInfo.email}`
+                    }}
+                  >
+                    {t.contactInfo.email}
+                  </a>
                 </div>
               </div>
 
@@ -111,7 +120,16 @@ export function ContactSection() {
                   <p className="font-medium text-foreground" style={fontStyle}>
                     {language === "fa" ? "تلفن" : "Phone"}
                   </p>
-                  <p className="text-muted-foreground">{t.contactInfo.phone}</p>
+                  <a 
+                    href={`tel:${t.contactInfo.phone.replace(/[^0-9+]/g, '')}`}
+                    className="text-muted-foreground hover:text-gold transition-colors cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      window.location.href = `tel:${t.contactInfo.phone.replace(/[^0-9+]/g, '')}`
+                    }}
+                  >
+                    {t.contactInfo.phone}
+                  </a>
                 </div>
               </div>
 
@@ -123,7 +141,14 @@ export function ContactSection() {
                   <p className="font-medium text-foreground" style={fontStyle}>
                     {language === "fa" ? "آدرس" : "Address"}
                   </p>
-                  <p className="text-muted-foreground">{t.contactInfo.address}</p>
+                  <a 
+                    href={`https://maps.google.com/?q=${encodeURIComponent(t.contactInfo.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-gold transition-colors cursor-pointer"
+                  >
+                    {t.contactInfo.address}
+                  </a>
                 </div>
               </div>
 

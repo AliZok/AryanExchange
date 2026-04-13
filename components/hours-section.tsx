@@ -16,11 +16,11 @@ const content = {
     sunday: "Sunday",
     sundayTime: "11:00 AM - 6:00 PM",
     location: "Location",
-    locationDesc: "Visit our physical exchange for in-person transactions and consultations",
+    locationDesc: "123 Financial District, New York, NY 10004",
     phone: "Phone",
-    phoneDesc: "Call us for inquiries and live rates",
+    phoneDesc: "+1 (555) 123-4567",
     email: "Email",
-    emailDesc: "Contact us anytime via email",
+    emailDesc: "info@aryanexchange.com",
     paymentMethods: "Accepted Payment Methods",
   },
   fa: {
@@ -32,11 +32,11 @@ const content = {
     sunday: "یکشنبه",
     sundayTime: "۱۱ صبح تا ۶ عصر",
     location: "موقعیت",
-    locationDesc: "برای تراکنش‌های حضوری و مشاوره به صرافی ما مراجعه کنید",
+    locationDesc: "منطقه مالی ۱۲۳، نیویورک، نیویورک ۱۰۰۰۴",
     phone: "تلفن",
-    phoneDesc: "برای استعلام و نرخ‌های لحظه‌ای با ما تماس بگیرید",
+    phoneDesc: "+۱ (۵۵۵) ۱۲۳-۴۵۶۷",
     email: "ایمیل",
-    emailDesc: "هر زمان از طریق ایمیل با ما در تماس باشید",
+    emailDesc: "info@aryanexchange.com",
     paymentMethods: "روش‌های پرداخت",
   },
 }
@@ -50,6 +50,7 @@ export function HoursSection() {
     <section id="visit" className="py-24 relative">
       {/* Background Decoration */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+      <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
       
       <div className="container mx-auto px-4">
         {/* Section Header */}
@@ -100,9 +101,15 @@ export function HoursSection() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground leading-relaxed" style={fontStyle}>
+              <a 
+                href={`https://maps.google.com/?q=${encodeURIComponent(t.locationDesc)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-gold transition-colors cursor-pointer leading-relaxed block"
+                style={fontStyle}
+              >
                 {t.locationDesc}
-              </p>
+              </a>
             </CardContent>
           </Card>
 
@@ -117,9 +124,17 @@ export function HoursSection() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground" style={fontStyle}>
+              <a 
+                href={`tel:${t.phoneDesc.replace(/[^0-9+]/g, '')}`}
+                className="text-muted-foreground hover:text-gold transition-colors cursor-pointer block"
+                style={fontStyle}
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.location.href = `tel:${t.phoneDesc.replace(/[^0-9+]/g, '')}`
+                }}
+              >
                 {t.phoneDesc}
-              </p>
+              </a>
             </CardContent>
           </Card>
 
@@ -134,9 +149,17 @@ export function HoursSection() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground" style={fontStyle}>
+              <a 
+                href={`mailto:${t.emailDesc}`}
+                className="text-muted-foreground hover:text-gold transition-colors cursor-pointer block"
+                style={fontStyle}
+                onClick={(e) => {
+                  e.preventDefault()
+                  window.location.href = `mailto:${t.emailDesc}`
+                }}
+              >
                 {t.emailDesc}
-              </p>
+              </a>
             </CardContent>
           </Card>
         </div>
