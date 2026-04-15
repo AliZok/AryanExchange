@@ -10,7 +10,6 @@ import {
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "@/contexts/language-context"
-import { PriceDisplay } from "@/components/price-display"
 
 const services = {
   en: [
@@ -125,11 +124,6 @@ export function ServicesSection() {
             {t.subtitle}
           </p>
           <div className="mt-4 w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
-        </div>
-
-        {/* Price Display */}
-        <div className="mb-16">
-          <PriceDisplay />
         </div>
 
         {/* Services Grid */}
