@@ -2,6 +2,7 @@
 
 import { Shield } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
+import { Logo } from "@/components/logo"
 
 const IRAN_SANS_FONT = "'IranSans', 'Tahoma', 'Arial', sans-serif"
 
@@ -29,8 +30,8 @@ export function Footer() {
         <div className="flex flex-col items-center text-center">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 rounded-full border border-gold/30 bg-gold/10">
-              <Shield className="w-6 h-6 text-gold" />
+            <div className="p-1 rounded-full border border-gold/30 bg-gold/10">
+              <Logo size="md" />
             </div>
             <div>
               <h3 

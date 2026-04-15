@@ -5,6 +5,7 @@ import { Shield, Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
+import { Logo } from "@/components/logo"
 
 const navLinks = {
   en: [
@@ -59,8 +60,8 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg border border-gold/30 bg-gold/10">
-              <Shield className="w-5 h-5 text-gold" />
+            <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-gold/30 bg-gold/10">
+              <Logo size="sm" />
             </div>
             <span 
               className="text-lg font-bold text-gold"

@@ -32,6 +32,11 @@ export const metadata: Metadata = {
         url: '/icon.svg',
         type: 'image/svg+xml',
       },
+      {
+        url: '/aryan-exchange-logo-2.jpg',
+        type: 'image/jpeg',
+        sizes: 'any',
+      },
     ],
     apple: '/apple-icon.png',
   },

@@ -4,6 +4,7 @@ import { Shield, Globe, ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
 import { useEffect, useRef } from "react"
+import { Logo } from "@/components/logo"
 
 const content = {
   en: {
@@ -176,7 +177,7 @@ export function HeroSection() {
           <div className="absolute w-48 h-48 bg-gold/20 rounded-full blur-3xl animate-pulse" />
           <div className="absolute w-36 h-36 bg-amber-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "0.5s" }} />
           <div className="relative p-6 rounded-full border border-gold/50 bg-gradient-to-b from-gold/20 via-gold/5 to-transparent backdrop-blur-md shadow-[0_0_80px_rgba(201,162,39,0.4)]">
-            <Shield className="w-16 h-16 text-gold drop-shadow-[0_0_20px_rgba(201,162,39,0.8)]" strokeWidth={1.5} />
+            <Logo size="xl" className="drop-shadow-[0_0_30px_rgba(201,162,39,0.9)]" />
           </div>
         </div>
 
