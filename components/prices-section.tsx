@@ -137,7 +137,7 @@ export function PricesSection() {
 
   const formatPrice = (price: number, symbol: string) => {
     if (symbol.includes("IRR")) {
-      return `${price.toFixed(5)}`
+      return `${price.toFixed(2)}`
     }
     if (price >= 1000) {
       return `${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
