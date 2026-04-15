@@ -14,66 +14,36 @@ import { useLanguage } from "@/contexts/language-context"
 const services = {
   en: [
     {
-      icon: Banknote,
-      title: "Currency Exchange",
-      description: "Exchange all major world currencies at competitive rates",
+      icon: ArrowLeftRight,
+      title: "Direct Currency Transfer",
+      description: "Fast and secure direct international currency transfers",
     },
     {
       icon: Bitcoin,
-      title: "Cryptocurrency Trading",
-      description: "Buy and sell Bitcoin, Ethereum, and all major digital currencies",
-    },
-    {
-      icon: ArrowLeftRight,
-      title: "Money Transfer",
-      description: "Fast and secure international money transfers worldwide",
+      title: "Professional Cryptocurrency Trading",
+      description: "Expert buying and selling of all types of digital currencies",
     },
     {
       icon: CreditCard,
-      title: "VISA Card Services",
-      description: "European VISA card services for seamless transactions",
-    },
-    {
-      icon: Globe2,
-      title: "SWIFT Transfers",
-      description: "International wire transfers via SWIFT network",
-    },
-    {
-      icon: Shield,
-      title: "Secure Banking VPN",
-      description: "Secure VPN solutions for banking applications",
+      title: "Foreign Income Cashing Services",
+      description: "Cashing foreign currency income, VISA cards and SWIFT accounts",
     },
   ],
   fa: [
     {
-      icon: Banknote,
-      title: "تبدیل ارز",
-      description: "تبدیل تمامی ارزهای معتبر جهانی با نرخ‌های رقابتی",
+      icon: ArrowLeftRight,
+      title: "حواله مستقیم ارزی",
+      description: "انتقال سریع و امن حواله مستقیم ارزی بین‌المللی",
     },
     {
       icon: Bitcoin,
-      title: "خرید و فروش ارز دیجیتال",
-      description: "خرید و فروش بیت‌کوین، اتریوم و تمامی ارزهای دیجیتال معتبر",
-    },
-    {
-      icon: ArrowLeftRight,
-      title: "حواله ارزی",
-      description: "انتقال سریع و امن پول به سراسر جهان",
+      title: "خرید و فروش تخصصی انواع ارزهای دیجیتال",
+      description: "خرید و فروش تخصصی و حرفه‌ای انواع ارزهای دیجیتال",
     },
     {
       icon: CreditCard,
-      title: "خدمات ویزا کارت",
-      description: "خدمات ویزا کارت اروپایی برای تراکنش‌های بی‌دردسر",
-    },
-    {
-      icon: Globe2,
-      title: "انتقال سوئیفت",
-      description: "انتقال حواله بین‌المللی از طریق شبکه سوئیفت",
-    },
-    {
-      icon: Shield,
-      title: "VPN بانکداری امن",
-      description: "راه‌حل‌های VPN امن برای برنامه‌های بانکداری",
+      title: "نقد کردن درآمد ارزی، ویزاکارت و حساب‌های سوئیفت",
+      description: "خدمات نقد کردن درآمدهای ارزی، ویزاکارت و حساب‌های سوئیفت",
     },
   ],
 }

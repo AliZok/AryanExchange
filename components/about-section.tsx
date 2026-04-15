@@ -8,19 +8,15 @@ const IRAN_SANS_FONT = "'IranSans', 'Tahoma', 'Arial', sans-serif"
 
 const features = {
   en: [
-    "Licensed and regulated exchange",
     "Competitive exchange rates",
     "Fast and secure transactions",
     "Professional customer service",
-    "Wide range of currencies",
     "Cryptocurrency expertise",
   ],
   fa: [
-    "صرافی دارای مجوز و تحت نظارت",
     "نرخ‌های رقابتی تبدیل ارز",
     "تراکنش‌های سریع و امن",
     "خدمات حرفه‌ای مشتریان",
-    "طیف گسترده‌ای از ارزها",
     "تخصص در ارزهای دیجیتال",
   ],
 }
@@ -29,7 +25,7 @@ const content = {
   en: {
     title: "About Aryan Exchange",
     subtitle: "Who We Are",
-    description: "Aryan Exchange is your trusted partner for all currency and digital asset needs. With years of experience in the financial industry, we provide reliable, secure, and efficient services for currency exchange, cryptocurrency trading, and international money transfers.",
+    description: "At Arian Exchange, we prioritize transparency and security to meet all your currency and digital asset needs. Leveraging our financial infrastructure across Dubai, Armenia, Europe, and Iran, we provide a seamless experience for your international financial transactions.",
     stat1: "Years Experience",
     stat2: "Currencies",
     stat3: "Support",
@@ -37,7 +33,7 @@ const content = {
   fa: {
     title: "درباره صرافی آرین",
     subtitle: "ما که هستیم",
-    description: "صرافی آرین شریک مورد اعتماد شما برای تمامی نیازهای ارزی و دارایی دیجیتال است. با سال‌ها تجربه در صنعت مالی، ما خدمات قابل اعتماد، امن و کارآمد برای تبدیل ارز، معامله ارزهای دیجیتال و انتقال پول بین‌المللی ارائه می‌دهیم.",
+    description: "صرافی آرین با تمرکز بر شفافیت و امنیت، تمامی نیازهای ارزی و دیجیتال شما را پوشش می‌دهد. ما با بهره‌گیری از زیرساخت‌های مالی در دبی، ارمنستان، اروپا و ایران، تجربه‌ای متفاوت از تبادلات مالی بین‌المللی را برایتان رقم می‌زنیم.",
     stat1: "سال تجربه",
     stat2: "نوع ارز",
     stat3: "پشتیبانی",
