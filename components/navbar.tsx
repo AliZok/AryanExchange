@@ -5,7 +5,7 @@ import { Shield, Menu, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/contexts/language-context"
-import { Logo } from "@/components/logo"
+import Image from "next/image"
 
 const navLinks = {
   en: [
@@ -60,8 +60,15 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
-            <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-gold/30 bg-gold/10">
-              <Logo size="sm" />
+            <div className="relative w-8 h-8 rounded-lg border border-gold/30 bg-gold/10 overflow-hidden">
+              <Image
+                src="/aryan-exchange-logo-2.jpg"
+                alt="Aryan Exchange Logo"
+                fill
+                className="object-cover"
+                priority
+                style={{ objectFit: 'cover' }}
+              />
             </div>
             <span 
               className="text-lg font-bold text-gold"

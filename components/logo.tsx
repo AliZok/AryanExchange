@@ -19,13 +19,14 @@ const sizeClasses = {
 export function Logo({ size = "md", className = "", showText = false, textClassName = "" }: LogoProps) {
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <div className={`relative ${sizeClasses[size]} object-contain`}>
+      <div className={`relative ${sizeClasses[size]}`}>
         <Image
           src="/aryan-exchange-logo-2.jpg"
           alt="Aryan Exchange Logo"
           fill
           className="object-cover"
           priority
+          style={{ objectFit: 'cover' }}
         />
       </div>
       {showText && (
