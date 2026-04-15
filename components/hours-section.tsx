@@ -20,7 +20,7 @@ const content = {
     phone: "Phone",
     phoneDesc: "+374 938 87915",
     email: "Email",
-    emailDesc: "info@aryanexchange.com",
+    emailDesc: "ArianExchange2026@gmail.com",
     paymentMethods: "Accepted Payment Methods",
   },
   fa: {
@@ -36,7 +36,7 @@ const content = {
     phone: "تلفن",
     phoneDesc: "+۳۷۴ ۹۳۸ ۸۷۹۱۵",
     email: "ایمیل",
-    emailDesc: "info@aryanexchange.com",
+    emailDesc: "ArianExchange2026@gmail.com",
     paymentMethods: "روش‌های پرداخت",
   },
 }
@@ -67,7 +67,7 @@ export function HoursSection() {
           <div className="mt-4 w-24 h-1 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {/* Working Hours */}
           <Card className="bg-card/50 border-border/50 hover:border-gold/50 transition-all duration-300 backdrop-blur-sm">
             <CardHeader>
@@ -147,7 +147,7 @@ export function HoursSection() {
             <CardContent>
               <a 
                 href={`mailto:${t.emailDesc}`}
-                className="text-muted-foreground hover:text-gold transition-colors cursor-pointer block"
+                className="text-muted-foreground text-[14px] hover:text-gold transition-colors cursor-pointer block break-words"
                 style={fontStyle}
               >
                 {t.emailDesc}

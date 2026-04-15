@@ -12,7 +12,7 @@ const content = {
     subtitle: "Get in Touch",
     description: "Have questions about our services? Want to exchange currency or trade cryptocurrency? Reach out to us and we'll be happy to assist you.",
     contactInfo: {
-      email: "info@aryanexchange.com",
+      email: "ArianExchange2026@gmail.com",
       phone: "+374 93 887915",
       address: "123 Financial District, New York, NY 10004",
       hours: "Mon-Fri: 9AM-6PM, Sat: 10AM-4PM"
@@ -30,7 +30,7 @@ const content = {
     subtitle: "ارتباط با آرین",
     description: "سوالاتی در مورد خدمات ما دارید؟ می‌خواهید ارز را تبدیل کنید یا با ارزهای دیجیتال معامله کنید؟ با ما تماس بگیرید و خوشحال خواهیم شد که به شما کمک کنیم.",
     contactInfo: {
-      email: "info@aryanexchange.com",
+      email: "ArianExchange2026@gmail.com",
       phone: "+۳۷۴ ۹۳ ۸۸۷۹۱۵",
       address: "منطقه مالی ۱۲۳، نیویورک، نیویورک ۱۰۰۰۴",
       hours: "دوشنبه تا جمعه: ۹ صبح تا ۶ عصر، شنبه: ۱۰ صبح تا ۴ عصر"
@@ -101,7 +101,7 @@ export function ContactSection() {
                   </p>
                   <a 
                     href={`mailto:${t.contactInfo.email}`}
-                    className="text-muted-foreground hover:text-gold transition-colors cursor-pointer"
+                    className="text-muted-foreground hover:text-gold transition-colors cursor-pointer break-words"
                     onClick={(e) => {
                       e.preventDefault()
                       window.location.href = `mailto:${t.contactInfo.email}`
