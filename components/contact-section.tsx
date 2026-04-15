@@ -14,7 +14,7 @@ const content = {
     contactInfo: {
       email: "ArianExchange2026@gmail.com",
       phone: "+374 93 887915",
-      address: "123 Financial District, New York, NY 10004",
+      address: "Yerevan - 1 Yekmalyan St",
       hours: "Mon-Fri: 9AM-6PM, Sat: 10AM-4PM"
     },
     form: {
@@ -142,7 +142,7 @@ export function ContactSection() {
                     {language === "fa" ? "آدرس" : "Address"}
                   </p>
                   <a 
-                    href={`https://maps.google.com/?q=${encodeURIComponent(t.contactInfo.address)}`}
+                    href="https://maps.app.goo.gl/6zazrfAyWswdSJez8?g_st=awb"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-gold transition-colors cursor-pointer"

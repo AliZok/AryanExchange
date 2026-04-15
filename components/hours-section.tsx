@@ -16,7 +16,7 @@ const content = {
     sunday: "Sunday",
     sundayTime: "11:00 AM - 6:00 PM",
     location: "Location",
-    locationDesc: "123 Financial District, New York, NY 10004",
+    locationDesc: "Yerevan - 1 Yekmalyan St",
     phone: "Phone",
     phoneDesc: "+374 938 87915",
     email: "Email",
@@ -102,7 +102,7 @@ export function HoursSection() {
             </CardHeader>
             <CardContent>
               <a 
-                href={`https://maps.google.com/?q=${encodeURIComponent(t.locationDesc)}`}
+                href="https://maps.app.goo.gl/6zazrfAyWswdSJez8?g_st=awb"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-gold transition-colors cursor-pointer leading-relaxed block"
