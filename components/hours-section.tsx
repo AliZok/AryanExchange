@@ -128,10 +128,6 @@ export function HoursSection() {
                 href={`tel:${t.phoneDesc.replace(/[^0-9+]/g, '')}`}
                 className="text-muted-foreground hover:text-gold transition-colors cursor-pointer block"
                 style={fontStyle}
-                onClick={(e) => {
-                  e.preventDefault()
-                  window.location.href = `tel:${t.phoneDesc.replace(/[^0-9+]/g, '')}`
-                }}
               >
                 {t.phoneDesc}
               </a>
@@ -153,10 +149,6 @@ export function HoursSection() {
                 href={`mailto:${t.emailDesc}`}
                 className="text-muted-foreground hover:text-gold transition-colors cursor-pointer block"
                 style={fontStyle}
-                onClick={(e) => {
-                  e.preventDefault()
-                  window.location.href = `mailto:${t.emailDesc}`
-                }}
               >
                 {t.emailDesc}
               </a>

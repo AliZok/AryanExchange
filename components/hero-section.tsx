@@ -53,6 +53,9 @@ export function HeroSection() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    let animationId: number | null = null
+    let intervalId: NodeJS.Timeout | null = null
+
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
@@ -93,11 +96,19 @@ export function HeroSection() {
       }
     }
 
-    const interval = setInterval(draw, 50)
+    intervalId = setInterval(draw, 50)
 
     return () => {
-      clearInterval(interval)
+      if (intervalId) {
+        clearInterval(intervalId)
+      }
+      if (animationId) {
+        cancelAnimationFrame(animationId)
+      }
       window.removeEventListener("resize", resizeCanvas)
+      
+      // Clear canvas to prevent memory leaks
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
   }, [])
 

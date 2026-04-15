@@ -81,9 +81,24 @@ export function PriceDisplay() {
   const fetchCryptoPrices = async () => {
     try {
       const response = await fetch(
-        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tron,litecoin,tether&vs_currencies=usd&include_24hr_change=true'
+        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tron,litecoin,tether&vs_currencies=usd&include_24hr_change=true',
+        {
+          headers: {
+            'Accept': 'application/json',
+          },
+          timeout: 10000 // 10 second timeout
+        }
       )
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const data = await response.json()
+      
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid API response format')
+      }
       
       setPrices(prevPrices => 
         prevPrices.map(price => {
@@ -96,11 +111,11 @@ export function PriceDisplay() {
           
           const cryptoData = cryptoId ? data[cryptoId] : null
           
-          if (cryptoData) {
+          if (cryptoData && typeof cryptoData === 'object' && 'usd' in cryptoData) {
             return {
               ...price,
-              price: cryptoData.usd,
-              change: cryptoData.usd_24h_change || 0
+              price: typeof cryptoData.usd === 'number' ? cryptoData.usd : price.price,
+              change: typeof cryptoData.usd_24h_change === 'number' ? cryptoData.usd_24h_change : 0
             }
           }
           return price
@@ -108,6 +123,8 @@ export function PriceDisplay() {
       )
     } catch (error) {
       console.error('Failed to fetch crypto prices:', error)
+      // Silently fail to avoid disrupting user experience
+      // Could add user notification here if needed
     }
   }
 
@@ -119,7 +136,7 @@ export function PriceDisplay() {
   }, [])
 
   const formatPrice = (price: number, symbol: string) => {
-    if (symbol === "IRR") {
+    if (symbol.includes("IRR")) {
       return `${price.toFixed(5)}`
     }
     if (price >= 1000) {
