@@ -15,7 +15,8 @@ const content = {
       email: "ArianExchange2026@gmail.com",
       phone: "+374 93 887915",
       address: "Yerevan - 1 Yekmalyan St",
-      hours: "Mon-Fri: 9AM-6PM, Sat: 10AM-4PM"
+      hours: "Mon-Fri: 10AM-9PM, Sat: 11AM-6PM",
+      onlineSupport: "24/7 Online Support"
     },
     form: {
       name: "Full Name",
@@ -33,7 +34,8 @@ const content = {
       email: "ArianExchange2026@gmail.com",
       phone: "+۳۷۴ ۹۳ ۸۸۷۹۱۵",
       address: "منطقه مالی ۱۲۳، نیویورک، نیویورک ۱۰۰۰۴",
-      hours: "دوشنبه تا جمعه: ۹ صبح تا ۶ عصر، شنبه: ۱۰ صبح تا ۴ عصر"
+      hours: "شنبه تا پنج‌شنبه: ۱۰ صبح تا ۹ شب، شنبه: ۱۱ صبح تا ۶ عصر",
+      onlineSupport: "۲۴ ساعته پاسخگو آنلاین"
     },
     form: {
       name: "نام کامل",
@@ -161,6 +163,17 @@ export function ContactSection() {
                     {language === "fa" ? "ساعات کاری" : "Business Hours"}
                   </p>
                   <p className="text-muted-foreground">{t.contactInfo.hours}</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-6 h-6 text-gold" />
+                </div>
+                <div>
+                  <p className="font-medium text-foreground" style={fontStyle}>
+                    {t.contactInfo.onlineSupport}
+                  </p>
                 </div>
               </div>
             </div>

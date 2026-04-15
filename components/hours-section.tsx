@@ -11,10 +11,11 @@ const content = {
     title: "Visit Us",
     subtitle: "Working Hours & Contact",
     workingHours: "Working Hours",
-    monSat: "Mon - Sat",
-    monSatTime: "9:00 AM - 9:00 PM",
-    sunday: "Sunday",
-    sundayTime: "11:00 AM - 6:00 PM",
+    monSat: "Mon - Fri",
+    monSatTime: "10:00 AM - 9:00 PM",
+    saturday: "Saturday",
+    saturdayTime: "11:00 AM - 6:00 PM",
+    onlineSupport: "24/7 Online Support",
     location: "Location",
     locationDesc: "Yerevan - 1 Yekmalyan St",
     phone: "Phone",
@@ -28,9 +29,10 @@ const content = {
     subtitle: "ساعات کاری و تماس",
     workingHours: "ساعات کاری",
     monSat: "شنبه تا پنج‌شنبه",
-    monSatTime: "۹ صبح تا ۹ شب",
-    sunday: "یکشنبه",
-    sundayTime: "۱۱ صبح تا ۶ عصر",
+    monSatTime: "۱۰ صبح تا ۹ شب",
+    saturday: "شنبه",
+    saturdayTime: "۱۱ صبح تا ۶ عصر",
+    onlineSupport: "۲۴ ساعته پاسخگو آنلاین",
     location: "موقعیت",
     locationDesc: "منطقه مالی ۱۲۳، نیویورک، نیویورک ۱۰۰۰۴",
     phone: "تلفن",
@@ -84,8 +86,12 @@ export function HoursSection() {
                 <p className="text-muted-foreground" style={fontStyle}>{t.monSatTime}</p>
               </div>
               <div>
-                <p className="text-gold font-medium" style={fontStyle}>{t.sunday}</p>
-                <p className="text-muted-foreground" style={fontStyle}>{t.sundayTime}</p>
+                <p className="text-gold font-medium" style={fontStyle}>{t.saturday}</p>
+                <p className="text-muted-foreground" style={fontStyle}>{t.saturdayTime}</p>
+              </div>
+              <div>
+                <p className="text-gold font-medium" style={fontStyle}>{t.onlineSupport}</p>
+                <p className="text-muted-foreground" style={fontStyle}></p>
               </div>
             </CardContent>
           </Card>
