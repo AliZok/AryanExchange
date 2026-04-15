@@ -37,7 +37,7 @@ export function Navbar() {
   const t = content[language]
 
   const handleCall = () => {
-    window.location.href = "tel:+15551234567"
+    window.location.href = "tel:+37493887915"
   }
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {

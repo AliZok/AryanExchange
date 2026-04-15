@@ -13,7 +13,7 @@ const content = {
     description: "Have questions about our services? Want to exchange currency or trade cryptocurrency? Reach out to us and we'll be happy to assist you.",
     contactInfo: {
       email: "info@aryanexchange.com",
-      phone: "+1 (555) 123-4567",
+      phone: "+374 93 887915",
       address: "123 Financial District, New York, NY 10004",
       hours: "Mon-Fri: 9AM-6PM, Sat: 10AM-4PM"
     },
@@ -31,7 +31,7 @@ const content = {
     description: "سوالاتی در مورد خدمات ما دارید؟ می‌خواهید ارز را تبدیل کنید یا با ارزهای دیجیتال معامله کنید؟ با ما تماس بگیرید و خوشحال خواهیم شد که به شما کمک کنیم.",
     contactInfo: {
       email: "info@aryanexchange.com",
-      phone: "+۱ (۵۵۵) ۱۲۳-۴۵۶۷",
+      phone: "+۳۷۴ ۹۳ ۸۸۷۹۱۵",
       address: "منطقه مالی ۱۲۳، نیویورک، نیویورک ۱۰۰۰۴",
       hours: "دوشنبه تا جمعه: ۹ صبح تا ۶ عصر، شنبه: ۱۰ صبح تا ۴ عصر"
     },
