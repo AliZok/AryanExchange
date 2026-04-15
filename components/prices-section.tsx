@@ -155,29 +155,6 @@ export function PricesSection() {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
       
       <div className="relative z-10 container mx-auto px-4">
-        {/* Section header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-            style={{ 
-              fontFamily: language === "fa" 
-                ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
-                : "inherit" 
-            }}
-          >
-            {language === "fa" ? "Real-Time Prices" : "Real-Time Prices"}
-          </h2>
-          <p className="text-lg text-foreground/70 max-w-2xl mx-auto"
-            style={{ 
-              fontFamily: language === "fa" 
-                ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
-                : "inherit" 
-            }}
-          >
-            {language === "fa" 
-              ? "Live cryptocurrency and currency exchange rates updated every minute" 
-              : "Live cryptocurrency and currency exchange rates updated every minute"}
-          </p>
-        </div>
 
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
