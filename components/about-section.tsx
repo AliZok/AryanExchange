@@ -55,7 +55,7 @@ export function AboutSection() {
             <div className="absolute -inset-4 bg-gradient-to-r from-gold/20 to-gold/5 rounded-2xl blur-xl" />
             <div className="relative rounded-2xl overflow-hidden border-2 border-gold/30">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/aryan2-3z1qWPX3raFAODpA5AEvTm0PkChVsz.jpg"
+                src="/aryan-exchange-table.jpg"
                 alt="Aryan Exchange - Global Currency Services"
                 width={600}
                 height={800}
