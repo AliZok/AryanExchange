@@ -18,7 +18,7 @@ const content = {
     location: "Location",
     locationDesc: "Yerevan - 1 Yekmalyan St",
     phone: "Phone",
-    phoneDesc: "+374 938 87915",
+    phoneDesc: "+37493887915",
     email: "Email",
     emailDesc: "ArianExchange2026@gmail.com",
     paymentMethods: "Accepted Payment Methods",
@@ -125,7 +125,8 @@ export function HoursSection() {
             </CardHeader>
             <CardContent>
               <a 
-                href={`tel:${t.phoneDesc.replace(/[^0-9+]/g, '')}`}
+                href={`tel:+37493887915}`}
+                dir="ltr"
                 className="text-muted-foreground hover:text-gold transition-colors cursor-pointer block"
                 style={fontStyle}
               >
