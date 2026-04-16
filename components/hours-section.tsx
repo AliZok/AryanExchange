@@ -163,24 +163,6 @@ export function HoursSection() {
           </Card>
         </div>
 
-        {/* Payment Methods */}
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground mb-6" style={fontStyle}>{t.paymentMethods}</p>
-          <div className="flex justify-center items-center gap-8 flex-wrap">
-            <div className="px-6 py-3 bg-card/50 rounded-lg border border-border/50">
-              <span className="text-gold font-bold text-xl">VISA</span>
-            </div>
-            <div className="px-6 py-3 bg-card/50 rounded-lg border border-border/50">
-              <span className="text-gold font-bold text-xl">SWIFT</span>
-            </div>
-            <div className="px-6 py-3 bg-card/50 rounded-lg border border-border/50">
-              <span className="text-gold font-bold text-xl">Crypto</span>
-            </div>
-            <div className="px-6 py-3 bg-card/50 rounded-lg border border-border/50">
-              <span className="text-gold font-bold text-xl" style={fontStyle}>{language === "fa" ? "نقدی" : "Cash"}</span>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   )

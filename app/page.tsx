@@ -5,6 +5,7 @@ import { ServicesSection } from "@/components/services-section"
 import { AboutSection } from "@/components/about-section"
 import { HoursSection } from "@/components/hours-section"
 import { ContactSection } from "@/components/contact-section"
+import { PaymentMethodsSection } from "@/components/payment-methods-section"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <AboutSection />
       <HoursSection />
       <ContactSection />
+      <PaymentMethodsSection />
       <Footer />
     </main>
   )
