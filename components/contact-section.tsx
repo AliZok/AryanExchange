@@ -9,14 +9,14 @@ const IRAN_SANS_FONT = "'IranSans', 'Tahoma', 'Arial', sans-serif"
 
 const content = {
   en: {
-    title: "Contact Us",
-    subtitle: "Get in Touch",
-    description: "Have questions about our services? Want to exchange currency or trade cryptocurrency? Reach out to us and we'll be happy to assist you.",
+    title: "Visit Us",
+    subtitle: "Working Hours & Contact",
+    description: "Visit our exchange office in Yerevan for professional currency exchange and cryptocurrency trading services.",
     contactInfo: {
       email: "ArianExchange2026@gmail.com",
-      phone: "+374 93 887915",
+      phone: "+37493887915",
       address: "Yerevan - 1 Yekmalyan St",
-      hours: "Mon-Fri: 10AM-9PM, Sat: 11AM-6PM",
+      hours: "Mon-Fri: 10:00 AM - 9:00 PM, Saturday: 11:00 AM - 6:00 PM",
       onlineSupport: "24/7 Online Support"
     },
     form: {
@@ -28,22 +28,22 @@ const content = {
     }
   },
   fa: {
-    title: "تماس با ما",
-    subtitle: "ارتباط با آرین",
-    description: "سوالاتی در مورد خدمات ما دارید؟ می‌خواهید ارز را تبدیل کنید یا با ارزهای دیجیتال معامله کنید؟ با ما تماس بگیرید و خوشحال خواهیم شد که به شما کمک کنیم.",
+    title: "be ma sar bezanid",
+    subtitle: "saat karie va tamas",
+    description: "dafatare arz ma ra dar iran baraye mabadale araz e hasef darad va mored arz digital moamale konid.",
     contactInfo: {
       email: "ArianExchange2026@gmail.com",
-      phone: "+۳۷۴ ۹۳ ۸۸۷۹۱۵",
-      address: "منطقه مالی ۱۲۳، نیویورک، نیویورک ۱۰۰۰۴",
-      hours: "شنبه تا پنج‌شنبه: ۱۰ صبح تا ۹ شب، شنبه: ۱۱ صبح تا ۶ عصر",
-      onlineSupport: "پاخسگویی ۲۴ ساعته"
+      phone: "+37493887915",
+      address: "irvan - khiaban yekmalian, shomare 1",
+      hours: "shanbe ta panjshanbe: 10 sob ta 9 shab, shanbe: 11 sob ta 6 asr",
+      onlineSupport: "pasokhgoei 24 saate"
     },
     form: {
-      name: "نام کامل",
-      email: "آدرس ایمیل",
-      subject: "موضوع",
-      message: "پیام",
-      submit: "ارسال پیام"
+      name: "nam kamel",
+      email: "address email",
+      subject: "mozoo",
+      message: "payam",
+      submit: "ersal payam"
     }
   }
 }
