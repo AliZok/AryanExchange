@@ -80,15 +80,20 @@ export function PricesSection() {
   // Fetch real crypto prices from CoinGecko API
   const fetchCryptoPrices = async () => {
     try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
       const response = await fetch(
         'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tron,litecoin,tether&vs_currencies=usd&include_24hr_change=true',
         {
           headers: {
             'Accept': 'application/json',
           },
-          timeout: 10000 // 10 second timeout
+          signal: controller.signal
         }
       )
+      
+      clearTimeout(timeoutId)
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`)
