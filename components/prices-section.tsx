@@ -18,7 +18,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "AMD/IRR",
     name: "Dram per Iranian Toman",
-    nameFa: "-rams iranian",
+    nameFa: "درام به تومان ایرانی",
     price: 0,
     change: 0,
     icon: <Coins className="w-5 h-5" />
@@ -26,7 +26,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "USD/AMD",
     name: "Dollar per Dram",
-    nameFa: "dollar rams",
+    nameFa: "دلار به درام",
     price: 0,
     change: -0.1,
     icon: <DollarSign className="w-5 h-5" />
@@ -34,7 +34,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "USD/IRR",
     name: "Dollar per Iranian Rial",
-    nameFa: "dollar iranian",
+    nameFa: "دلار به ریال ایرانی",
     price: 0,
     change: 0.2,
     icon: <DollarSign className="w-5 h-5" />
@@ -42,7 +42,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "BTC/USD",
     name: "Bitcoin per Dollar",
-    nameFa: "bitcoin dollar",
+    nameFa: "بیت‌کوین به دلار",
     price: 0,
     change: 2.3,
     icon: <Bitcoin className="w-5 h-5" />
@@ -50,7 +50,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "TRX/USD",
     name: "TRON per Dollar",
-    nameFa: "tron dollar",
+    nameFa: "ترون به دلار",
     price: 0,
     change: 1.2,
     icon: <Coins className="w-5 h-5" />
@@ -58,7 +58,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "LTC/USD",
     name: "Litecoin per Dollar",
-    nameFa: "litecoin dollar",
+    nameFa: "\u0644\u0627\u06cc\u062a\u200c\u06a9\u0648\u06cc\u0646 \u0628\u0647 \u062f\u0644\u0627\u0631",
     price: 0,
     change: -0.8,
     icon: <Coins className="w-5 h-5" />
@@ -66,7 +66,7 @@ const mockPrices: PriceItem[] = [
   {
     symbol: "USDT/USD",
     name: "Tether per Dollar",
-    nameFa: "tether dollar",
+    nameFa: "تتر به دلار",
     price: 0,
     change: 0.01,
     icon: <Coins className="w-5 h-5" />
@@ -211,7 +211,7 @@ export function PricesSection() {
                   : "inherit" 
               }}
             >
-              {language === "fa" ? "-last update" : "Last updated"}: {currentTime}
+              {language === "fa" ? "آخرین به‌روزرسانی" : "Last updated"}: {currentTime}
             </span>
           </div>
         </div>

@@ -29,22 +29,22 @@ const content = {
     }
   },
   fa: {
-    title: "be ma sar bezanid",
-    subtitle: "saat karie va tamas",
-    description: "dafatare arz ma ra dar iran baraye mabadale araz e hasef darad va mored arz digital moamale konid.",
+    title: "به ما سر بزنید",
+    subtitle: "ساعات کاری و تماس",
+    description: "دفاتر صرافی آرین در ایروان برای خدمات تبادل ارز و ارزهای دیجیتال آماده خدمت‌رسانی به شما عزیزان می‌باشد.",
     contactInfo: {
       email: "ArianExchange2026@gmail.com",
       phone: "+37493887915",
-      address: "irvan - khiaban yekmalian, shomare 1",
-      hours: "shanbe ta panjshanbe: 10 sob ta 9 shab, shanbe: 11 sob ta 6 asr",
-      onlineSupport: "pasokhgoei 24 saate"
+      address: "ایروان - خیابان یکمالیان، شماره 1",
+      hours: "شنبه تا پنج‌شنبه: ۱۰ صبح تا ۹ شب، جمعه: ۱۱ صبح تا ۶ عصر",
+      onlineSupport: "پاسخگویی ۲۴ ساعته"
     },
     form: {
-      name: "nam kamel",
-      email: "address email",
-      subject: "mozoo",
-      message: "payam",
-      submit: "ersal payam"
+      name: "نام کامل",
+      email: "آدرس ایمیل",
+      subject: "موضوع",
+      message: "پیام",
+      submit: "ارسال پیام"
     }
   }
 }
@@ -248,12 +248,12 @@ export function ContactSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <WhatsAppButton 
               phoneNumber={t.contactInfo.phone}
-              message={language === "fa" ? "slam, khastam az khedmatateton estefade konam" : "Hello, I'm interested in your services"}
+              message={language === "fa" ? "سلام، خواستم از خدمات شما استفاده کنم" : "Hello, I'm interested in your services"}
               className="px-8 py-3 text-lg"
             />
             <TelegramButton 
               username="ArianExchangee"
-              message={language === "fa" ? "slam, khastam az khedmatateton estefade konam" : "Hello, I'm interested in your services"}
+              message={language === "fa" ? "سلام، خواستم از خدمات شما استفاده کنم" : "Hello, I'm interested in your services"}
               className="px-8 py-3 text-lg"
             />
           </div>
