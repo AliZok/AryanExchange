@@ -76,6 +76,7 @@ const mockPrices: PriceItem[] = [
 export function PricesSection() {
   const { language, isRTL } = useLanguage()
   const [prices, setPrices] = useState(mockPrices)
+  const [currentTime, setCurrentTime] = useState<string>("")
 
   // Fetch real crypto prices from CoinGecko API
   const fetchCryptoPrices = async () => {
@@ -132,6 +133,11 @@ export function PricesSection() {
       // Could add user notification here if needed
     }
   }
+
+  // Set current time only on client side to avoid hydration mismatch
+  useEffect(() => {
+    setCurrentTime(new Date().toLocaleTimeString())
+  }, [])
 
   // Initial fetch and periodic updates
   useEffect(() => {
@@ -205,7 +211,7 @@ export function PricesSection() {
                   : "inherit" 
               }}
             >
-              {language === "fa" ? "-last update" : "Last updated"}: {new Date().toLocaleTimeString()}
+              {language === "fa" ? "-last update" : "Last updated"}: {currentTime}
             </span>
           </div>
         </div>

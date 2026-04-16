@@ -3,7 +3,7 @@
 import { Shield, Globe, ArrowRight, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 
 const content = {
@@ -35,6 +35,24 @@ export function HeroSection() {
   const t = content[language]
   const ArrowIcon = isRTL ? ArrowLeft : ArrowRight
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [stars, setStars] = useState<Array<{id: number, style: React.CSSProperties}>>([])
+
+  // Generate stars only on client side to avoid hydration mismatch
+  useEffect(() => {
+    const generatedStars = Array.from({ length: 100 }, (_, i) => ({
+      id: i,
+      style: {
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        width: `${Math.random() * 2 + 1}px`,
+        height: `${Math.random() * 2 + 1}px`,
+        opacity: Math.random() * 0.7 + 0.3,
+        animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
+        animationDelay: `${Math.random() * 3}s`,
+      }
+    }))
+    setStars(generatedStars)
+  }, [])
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
     e.preventDefault()
@@ -132,19 +150,11 @@ export function HeroSection() {
         
         {/* Stars */}
         <div className="absolute inset-0">
-          {[...Array(100)].map((_, i) => (
+          {stars.map((star) => (
             <div
-              key={i}
+              key={star.id}
               className="absolute rounded-full bg-white"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                width: `${Math.random() * 2 + 1}px`,
-                height: `${Math.random() * 2 + 1}px`,
-                opacity: Math.random() * 0.7 + 0.3,
-                animation: `twinkle ${2 + Math.random() * 3}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * 3}s`,
-              }}
+              style={star.style}
             />
           ))}
         </div>
