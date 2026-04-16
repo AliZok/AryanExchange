@@ -33,8 +33,8 @@ export const metadata: Metadata = {
         type: 'image/svg+xml',
       },
       {
-        url: '/aryan-exchange-logo-2.jpg',
-        type: 'image/jpeg',
+        url: '/aryan-exchange-logo-square-without-bg.png',
+        type: 'image/png',
         sizes: 'any',
       },
     ],

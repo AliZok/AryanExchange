@@ -62,7 +62,7 @@ export function Navbar() {
           <a href="#" className="flex items-center gap-2">
             <div className="relative w-8 h-8 rounded-lg border border-gold/30 bg-gold/10 overflow-hidden">
               <Image
-                src="/aryan-exchange-logo-2.jpg"
+                src="/aryan-exchange-logo-square-without-bg.png"
                 alt="Aryan Exchange Logo"
                 fill
                 className="object-cover"

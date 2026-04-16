@@ -21,7 +21,7 @@ export function Logo({ size = "md", className = "", showText = false, textClassN
     <div className={`flex items-center gap-2 ${className}`}>
       <div className={`relative ${sizeClasses[size]}`}>
         <Image
-          src="/aryan-exchange-logo-2.jpg"
+          src="/aryan-exchange-logo-square-without-bg.png"
           alt="Aryan Exchange Logo"
           fill
           className="object-cover"
