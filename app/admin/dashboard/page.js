@@ -2,23 +2,49 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { supabase } from '../../../../supabase';
 
 export default function AdminDashboard() {
   const [prices, setPrices] = useState([]);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    // Check authentication
-    const auth = localStorage.getItem('adminAuth');
-    if (!auth) {
-      router.push('/admin');
-      return;
-    }
+    // Check authentication and admin role
+    const checkAuth = async () => {
+      try {
+        // Get current user
+        const { data: { user: currentUser }, error: userError } = await supabase.auth.getUser();
+        
+        if (userError || !currentUser) {
+          router.push('/admin');
+          return;
+        }
 
-    // Load data (replace with actual API calls)
-    loadDashboardData();
+        // Check if user has admin role
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', currentUser.id)
+          .single();
+
+        if (profileError || profileData.role !== 'is_admin') {
+          await supabase.auth.signOut();
+          router.push('/admin');
+          return;
+        }
+
+        setUser(currentUser);
+        loadDashboardData();
+      } catch (error) {
+        console.error('Authentication check failed:', error);
+        router.push('/admin');
+      }
+    };
+
+    checkAuth();
   }, [router]);
 
   const loadDashboardData = async () => {
@@ -45,9 +71,14 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('adminAuth');
-    router.push('/admin');
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      router.push('/admin');
+    } catch (error) {
+      console.error('Logout error:', error);
+      router.push('/admin');
+    }
   };
 
   const updatePrice = (id, field, value) => {
