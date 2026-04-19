@@ -1,0 +1,5 @@
+@echo off
+echo NEXT_PUBLIC_SUPABASE_URL=https://vrbkcxugyiecbgmxkftg.supabase.co > .env.local
+echo NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyYmtjeHVneWllY2JnbXhrZnRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNzkyMjAsImV4cCI6MjA5MTg1NTIyMH0.Z5R2BbK2VI1_GLkIL3WOKMoi2bx-vKqXqoWNVO_5kbM >> .env.local
+echo .env.local file created successfully!
+del create-env.bat
