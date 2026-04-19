@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../../../supabase';
+import { supabase } from '../../../supabase.js';
 
 export default function AdminDashboard() {
   const [prices, setPrices] = useState([]);
