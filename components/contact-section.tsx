@@ -1,10 +1,12 @@
 "use client"
 
+import { useState } from "react"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { TelegramButton } from "@/components/telegram-button"
 import { useLanguage } from "@/contexts/language-context"
+import { supabase } from "@/supabase"
 
 const IRAN_SANS_FONT = "'IranSans', 'Tahoma', 'Arial', sans-serif"
 
@@ -53,6 +55,61 @@ export function ContactSection() {
   const { language } = useLanguage()
   const t = content[language]
   const fontStyle = language === "fa" ? { fontFamily: IRAN_SANS_FONT } : {}
+  
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitMessage, setSubmitMessage] = useState('')
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setSubmitMessage('')
+
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          status: 'unread',
+          created_at: new Date().toISOString()
+        })
+
+      if (error) {
+        throw error
+      }
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      })
+      
+      setSubmitMessage(language === "fa" ? "پیام شما با موفقیت ارسال شد!" : "Your message has been sent successfully!")
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      setSubmitMessage(language === "fa" ? "خطا در ارسال پیام. لطفاً دوباره تلاش کنید." : "Error sending message. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="contact" className="py-24 relative">
@@ -190,13 +247,17 @@ export function ContactSection() {
               {language === "fa" ? "ارسال پیام" : "Send us a Message"}
             </h3>
             
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2" style={fontStyle}>
                   {t.form.name}
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-2 bg-background border border-border/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors"
                   style={fontStyle}
                 />
@@ -208,6 +269,10 @@ export function ContactSection() {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-2 bg-background border border-border/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors"
                   style={fontStyle}
                 />
@@ -219,6 +284,10 @@ export function ContactSection() {
                 </label>
                 <input
                   type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  required
                   className="w-full px-4 py-2 bg-background border border-border/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors"
                   style={fontStyle}
                 />
@@ -229,14 +298,35 @@ export function ContactSection() {
                   {t.form.message}
                 </label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
                   rows={4}
                   className="w-full px-4 py-2 bg-background border border-border/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-colors resize-none"
                   style={fontStyle}
                 />
               </div>
 
-              <Button className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold">
-                {t.form.submit}
+              {submitMessage && (
+                <div className={`p-3 rounded-lg text-sm ${
+                  submitMessage.includes('موفقیت') || submitMessage.includes('successfully')
+                    ? 'bg-green-50 text-green-700 border border-green-200'
+                    : 'bg-red-50 text-red-700 border border-red-200'
+                }`}>
+                  {submitMessage}
+                </div>
+              )}
+
+              <Button 
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold disabled:opacity-50"
+              >
+                {isSubmitting 
+                  ? (language === "fa" ? "در حال ارسال..." : "Sending...")
+                  : t.form.submit
+                }
               </Button>
             </form>
           </div>
