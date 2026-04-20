@@ -9,6 +9,15 @@ export default function AdminDashboard() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [editingCurrency, setEditingCurrency] = useState(null);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [newCurrency, setNewCurrency] = useState({
+    name: '',
+    symbol: '',
+    image: '',
+    buy_price: 0,
+    sell_price: 0
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -165,6 +174,88 @@ export default function AdminDashboard() {
     }
   };
 
+  const createCurrency = async () => {
+    if (!newCurrency.name || !newCurrency.symbol) {
+      alert('لطفاً نام و نماد ارز را وارد کنید');
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('currencies')
+        .insert({
+          name: newCurrency.name,
+          symbol: newCurrency.symbol,
+          image: newCurrency.image,
+          buy_price: newCurrency.buy_price,
+          sell_price: newCurrency.sell_price,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        });
+
+      if (error) {
+        console.error('Error creating currency:', error);
+        alert('خطا در ایجاد ارز: ' + error.message);
+      } else {
+        alert('ارز با موفقیت ایجاد شد');
+        setNewCurrency({ name: '', symbol: '', image: '', buy_price: 0, sell_price: 0 });
+        setShowCreateForm(false);
+        loadDashboardData();
+      }
+    } catch (error) {
+      console.error('Error creating currency:', error);
+      alert('خطا در ایجاد ارز');
+    }
+  };
+
+  const updateCurrency = async (id, updates) => {
+    try {
+      const { error } = await supabase
+        .from('currencies')
+        .update({
+          ...updates,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id);
+
+      if (error) {
+        console.error('Error updating currency:', error);
+        alert('خطا در به‌روزرسانی ارز: ' + error.message);
+      } else {
+        alert('ارز با موفقیت به‌روزرسانی شد');
+        setEditingCurrency(null);
+        loadDashboardData();
+      }
+    } catch (error) {
+      console.error('Error updating currency:', error);
+      alert('خطا در به‌روزرسانی ارز');
+    }
+  };
+
+  const deleteCurrency = async (id) => {
+    if (!confirm('آیا از حذف این ارز مطمئن هستید؟ این عملیات قابل بازگشت نیست.')) {
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('currencies')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error('Error deleting currency:', error);
+        alert('خطا در حذف ارز: ' + error.message);
+      } else {
+        alert('ارز با موفقیت حذف شد');
+        loadDashboardData();
+      }
+    } catch (error) {
+      console.error('Error deleting currency:', error);
+      alert('خطا در حذف ارز');
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -241,71 +332,247 @@ export default function AdminDashboard() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* Prices Section */}
+            {/* Currencies Management Section */}
             <div className="bg-white overflow-hidden shadow-lg rounded-xl border border-gray-200">
               <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
-                <h3 className="text-xl font-bold text-white flex items-center">
-                  <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
-                  مدیریت قیمت‌ها
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-bold text-white flex items-center">
+                    <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
+                    مدیریت ارزها
+                  </h3>
+                  <button
+                    onClick={() => setShowCreateForm(!showCreateForm)}
+                    className="bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    {showCreateForm ? 'لغو' : '+ افزودن ارز جدید'}
+                  </button>
+                </div>
               </div>
               <div className="px-6 py-5">
-                <div className="space-y-4">
-                  {prices.map((price) => (
-                    <div key={price.id} className="border rounded-lg p-4 bg-gray-50">
-                      <div className="flex items-center justify-between mb-3">
-                        <div>
-                          <span className="font-bold text-lg text-gray-900">{price.name || price.currency}</span>
-                          <span className="text-sm text-gray-500 mr-2">{price.symbol}</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className="text-sm text-gray-500">
-                            آخرین به‌روزرسانی: {new Date(price.updated_at || price.lastUpdate).toLocaleString('fa-IR')}
-                          </span>
-                        </div>
+                {/* Create New Currency Form */}
+                {showCreateForm && (
+                  <div className="mb-6 p-4 border-2 border-dashed border-blue-300 rounded-lg bg-blue-50">
+                    <h4 className="font-bold text-lg mb-4 text-blue-900">ایجاد ارز جدید</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">نام ارز</label>
+                        <input
+                          type="text"
+                          value={newCurrency.name}
+                          onChange={(e) => setNewCurrency({...newCurrency, name: e.target.value})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="مثال: بیت‌کوین"
+                        />
                       </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            قیمت خرید (تومان)
-                          </label>
-                          <input
-                            type="number"
-                            value={price.buy_price || price.buyPrice || 0}
-                            onChange={(e) => updatePrice(price.id, 'buy_price', parseFloat(e.target.value))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            step="0.01"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">
-                            قیمت فروش (تومان)
-                          </label>
-                          <input
-                            type="number"
-                            value={price.sell_price || price.sellPrice || 0}
-                            onChange={(e) => updatePrice(price.id, 'sell_price', parseFloat(e.target.value))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            step="0.01"
-                          />
-                        </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">نماد ارز</label>
+                        <input
+                          type="text"
+                          value={newCurrency.symbol}
+                          onChange={(e) => setNewCurrency({...newCurrency, symbol: e.target.value})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="مثال: BTC"
+                        />
                       </div>
-                      <div className="mt-3 flex justify-end">
-                        <button
-                          onClick={() => savePrices()}
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                        >
-                          ذخیره تغییرات
-                        </button>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">آدرس تصویر</label>
+                        <input
+                          type="text"
+                          value={newCurrency.image}
+                          onChange={(e) => setNewCurrency({...newCurrency, image: e.target.value})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          placeholder="https://example.com/image.png"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت خرید (تومان)</label>
+                        <input
+                          type="number"
+                          value={newCurrency.buy_price}
+                          onChange={(e) => setNewCurrency({...newCurrency, buy_price: parseFloat(e.target.value) || 0})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          step="0.01"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت فروش (تومان)</label>
+                        <input
+                          type="number"
+                          value={newCurrency.sell_price}
+                          onChange={(e) => setNewCurrency({...newCurrency, sell_price: parseFloat(e.target.value) || 0})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          step="0.01"
+                        />
                       </div>
                     </div>
-                  ))}
-                  <button
-                    onClick={savePrices}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-4 rounded-md transition-colors"
-                  >
-                    ذخیره تمام قیمت‌ها
-                  </button>
+                    <div className="mt-4 flex justify-end space-x-2 space-x-reverse">
+                      <button
+                        onClick={() => {
+                          setShowCreateForm(false);
+                          setNewCurrency({ name: '', symbol: '', image: '', buy_price: 0, sell_price: 0 });
+                        }}
+                        className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                      >
+                        لغو
+                      </button>
+                      <button
+                        onClick={createCurrency}
+                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                      >
+                        ایجاد ارز
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Currencies List */}
+                <div className="space-y-4">
+                  {prices.length === 0 ? (
+                    <div className="text-center py-8 text-gray-500">
+                      ارزی یافت نشد. برای شروع، یک ارز جدید ایجاد کنید.
+                    </div>
+                  ) : (
+                    prices.map((currency) => (
+                      <div key={currency.id} className="border rounded-lg p-4 bg-gray-50 hover:bg-gray-100 transition-colors">
+                        {editingCurrency === currency.id ? (
+                          // Edit Mode
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <h4 className="font-bold text-lg text-blue-600">ویرایش ارز</h4>
+                              <button
+                                onClick={() => setEditingCurrency(null)}
+                                className="text-gray-500 hover:text-gray-700"
+                              >
+                                ✕
+                              </button>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">نام ارز</label>
+                                <input
+                                  type="text"
+                                  value={currency.name}
+                                  onChange={(e) => updatePrice(currency.id, 'name', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">نماد ارز</label>
+                                <input
+                                  type="text"
+                                  value={currency.symbol}
+                                  onChange={(e) => updatePrice(currency.id, 'symbol', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">آدرس تصویر</label>
+                                <input
+                                  type="text"
+                                  value={currency.image || ''}
+                                  onChange={(e) => updatePrice(currency.id, 'image', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت خرید (تومان)</label>
+                                <input
+                                  type="number"
+                                  value={currency.buy_price || currency.buyPrice || 0}
+                                  onChange={(e) => updatePrice(currency.id, 'buy_price', parseFloat(e.target.value))}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  step="0.01"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت فروش (تومان)</label>
+                                <input
+                                  type="number"
+                                  value={currency.sell_price || currency.sellPrice || 0}
+                                  onChange={(e) => updatePrice(currency.id, 'sell_price', parseFloat(e.target.value))}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  step="0.01"
+                                />
+                              </div>
+                            </div>
+                            <div className="mt-4 flex justify-end space-x-2 space-x-reverse">
+                              <button
+                                onClick={() => setEditingCurrency(null)}
+                                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                              >
+                                لغو
+                              </button>
+                              <button
+                                onClick={() => updateCurrency(currency.id, {
+                                  name: currency.name,
+                                  symbol: currency.symbol,
+                                  image: currency.image,
+                                  buy_price: currency.buy_price || currency.buyPrice,
+                                  sell_price: currency.sell_price || currency.sellPrice
+                                })}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                              >
+                                ذخیره تغییرات
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          // View Mode
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center space-x-3 space-x-reverse">
+                                {currency.image && (
+                                  <img 
+                                    src={currency.image} 
+                                    alt={currency.name}
+                                    className="w-10 h-10 rounded-full object-cover"
+                                    onError={(e) => e.target.style.display = 'none'}
+                                  />
+                                )}
+                                <div>
+                                  <span className="font-bold text-lg text-gray-900">{currency.name || currency.currency}</span>
+                                  <span className="text-sm text-gray-500 mr-2">{currency.symbol}</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <span className="text-sm text-gray-500">
+                                  آخرین به‌روزرسانی: {new Date(currency.updated_at || currency.lastUpdate).toLocaleString('fa-IR')}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 mb-3">
+                              <div className="bg-white p-3 rounded border">
+                                <p className="text-xs text-gray-600 mb-1">قیمت خرید</p>
+                                <p className="text-lg font-bold text-green-600">
+                                  {(currency.buy_price || currency.buyPrice || 0).toLocaleString('fa-IR')} تومان
+                                </p>
+                              </div>
+                              <div className="bg-white p-3 rounded border">
+                                <p className="text-xs text-gray-600 mb-1">قیمت فروش</p>
+                                <p className="text-lg font-bold text-red-600">
+                                  {(currency.sell_price || currency.sellPrice || 0).toLocaleString('fa-IR')} تومان
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex justify-end space-x-2 space-x-reverse">
+                              <button
+                                onClick={() => setEditingCurrency(currency.id)}
+                                className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                              >
+                                ویرایش
+                              </button>
+                              <button
+                                onClick={() => deleteCurrency(currency.id)}
+                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                              >
+                                حذف
+                              </button>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
