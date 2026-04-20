@@ -566,19 +566,19 @@ export default function AdminDashboard() {
                               <div className="bg-white p-3 rounded border">
                                 <p className="text-xs text-gray-600 mb-1">قیمت اصلی</p>
                                 <p className="text-lg font-bold text-blue-600">
-                                  {(currency.price || 0).toLocaleString('fa-IR')} تومان
+                                  {(currency.price || 0).toLocaleString('fa-IR')}
                                 </p>
                               </div>
                               <div className="bg-white p-3 rounded border">
                                 <p className="text-xs text-gray-600 mb-1">قیمت خرید</p>
                                 <p className="text-lg font-bold text-green-600">
-                                  {(currency.buy_price || currency.buyPrice || 0).toLocaleString('fa-IR')} تومان
+                                  {(currency.buy_price || currency.buyPrice || 0).toLocaleString('fa-IR')}
                                 </p>
                               </div>
                               <div className="bg-white p-3 rounded border">
                                 <p className="text-xs text-gray-600 mb-1">قیمت فروش</p>
                                 <p className="text-lg font-bold text-red-600">
-                                  {(currency.sell_price || currency.sellPrice || 0).toLocaleString('fa-IR')} تومان
+                                  {(currency.sell_price || currency.sellPrice || 0).toLocaleString('fa-IR')}
                                 </p>
                               </div>
                             </div>
