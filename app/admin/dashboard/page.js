@@ -59,23 +59,20 @@ export default function AdminDashboard() {
 
   const loadDashboardData = async () => {
     try {
-      // Fetch currencies from Supabase
-      const { data: currenciesData, error: currenciesError } = await supabase
-        .from('currencies')
-        .select('*')
-        .order('updated_at', { ascending: false });
+      // Fetch currencies from API
+      const currenciesResponse = await fetch('/api/currencies');
+      if (currenciesResponse.ok) {
+        const currenciesData = await currenciesResponse.json();
+        setPrices(currenciesData || []);
+      } else {
+        console.error('Error fetching currencies from API');
+      }
 
-      // Fetch messages from Supabase
+      // Fetch messages from Supabase (keeping this as is since we don't have messages API)
       const { data: messagesData, error: messagesError } = await supabase
         .from('messages')
         .select('*')
         .order('created_at', { ascending: false });
-
-      if (currenciesError) {
-        console.error('Error fetching currencies:', currenciesError);
-      } else {
-        setPrices(currenciesData || []);
-      }
 
       if (messagesError) {
         console.error('Error fetching messages:', messagesError);
@@ -182,26 +179,29 @@ export default function AdminDashboard() {
     }
 
     try {
-      const { error } = await supabase
-        .from('currencies')
-        .insert({
+      const response = await fetch('/api/currencies', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           name: newCurrency.name,
           symbol: newCurrency.symbol,
           image: newCurrency.image,
           price: newCurrency.price,
           buy_price: newCurrency.buy_price,
-          sell_price: newCurrency.sell_price,
-          updated_at: new Date().toISOString()
-        });
+          sell_price: newCurrency.sell_price
+        }),
+      });
 
-      if (error) {
-        console.error('Error creating currency:', error);
-        alert('خطا در ایجاد ارز: ' + error.message);
-      } else {
+      if (response.ok) {
         alert('ارز با موفقیت ایجاد شد');
         setNewCurrency({ name: '', symbol: '', image: '', price: 0, buy_price: 0, sell_price: 0 });
         setShowCreateForm(false);
         loadDashboardData();
+      } else {
+        const errorData = await response.json();
+        alert('خطا در ایجاد ارز: ' + (errorData.error || 'خطای نامشخص'));
       }
     } catch (error) {
       console.error('Error creating currency:', error);
@@ -211,21 +211,21 @@ export default function AdminDashboard() {
 
   const updateCurrency = async (id, updates) => {
     try {
-      const { error } = await supabase
-        .from('currencies')
-        .update({
-          ...updates,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', id);
+      const response = await fetch('/api/currencies', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, ...updates }),
+      });
 
-      if (error) {
-        console.error('Error updating currency:', error);
-        alert('خطا در به‌روزرسانی ارز: ' + error.message);
-      } else {
+      if (response.ok) {
         alert('ارز با موفقیت به‌روزرسانی شد');
         setEditingCurrency(null);
         loadDashboardData();
+      } else {
+        const errorData = await response.json();
+        alert('خطا در به‌روزرسانی ارز: ' + (errorData.error || 'خطای نامشخص'));
       }
     } catch (error) {
       console.error('Error updating currency:', error);
@@ -239,17 +239,16 @@ export default function AdminDashboard() {
     }
 
     try {
-      const { error } = await supabase
-        .from('currencies')
-        .delete()
-        .eq('id', id);
+      const response = await fetch(`/api/currencies?id=${id}`, {
+        method: 'DELETE',
+      });
 
-      if (error) {
-        console.error('Error deleting currency:', error);
-        alert('خطا در حذف ارز: ' + error.message);
-      } else {
+      if (response.ok) {
         alert('ارز با موفقیت حذف شد');
         loadDashboardData();
+      } else {
+        const errorData = await response.json();
+        alert('خطا در حذف ارز: ' + (errorData.error || 'خطای نامشخص'));
       }
     } catch (error) {
       console.error('Error deleting currency:', error);

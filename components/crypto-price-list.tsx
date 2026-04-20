@@ -3,44 +3,51 @@
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
 import Image from "next/image"
-
-const cryptoData = [
-  {
-    symbol: "BTC",
-    name: "Bitcoin",
-    shortName: "BTC",
-    price: "$70,799.00",
-    icon: "https://cryptologos.cc/logos/bitcoin-btc-logo.png",
-    chart: "/chart-to-bot.png"
-  },
-  {
-    symbol: "ETH", 
-    name: "Ethereum",
-    shortName: "ETH",
-    price: "$2,090.86",
-    icon: "https://cryptologos.cc/logos/ethereum-eth-logo.png",
-    chart: "/chart-to-bot.png"
-  },
-  {
-    symbol: "USDT",
-    name: "Tether",
-    shortName: "USDT",
-    price: "$1.00",
-    icon: "https://cryptologos.cc/logos/tether-usdt-logo.png",
-    chart: "/chart-to-bot.png"
-  },
-  {
-    symbol: "TRX",
-    name: "Tron", 
-    shortName: "TRX",
-    price: "$0.2939",
-    icon: "https://cryptologos.cc/logos/tron-trx-logo.png",
-    chart: "/chart-to-bot.png"
-  }
-]
+import { useState, useEffect } from "react"
 
 export function CryptoPriceList() {
   const { language } = useLanguage()
+  const [cryptoData, setCryptoData] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchCryptoPrices = async () => {
+      try {
+        const response = await fetch('/api/crypto-prices')
+        if (response.ok) {
+          const result = await response.json()
+          // Transform the data to match the expected format
+          const transformedData = result.data.map(crypto => ({
+            symbol: crypto.symbol,
+            name: language === "fa" ? crypto.name_fa : crypto.name,
+            shortName: crypto.symbol,
+            price: crypto.price_irt ? `${crypto.price_irt.toLocaleString('fa-IR')} تومان` : "قیمت موجود نیست",
+            icon: crypto.icon,
+            chart: crypto.change_24h >= 0 ? "/chart-to-top.png" : "/chart-to-bot-2.png",
+            change: crypto.change_24h
+          }))
+          setCryptoData(transformedData)
+        }
+      } catch (error) {
+        console.error('Error fetching crypto prices:', error)
+        // Fallback to default data if API fails
+        setCryptoData([
+          {
+            symbol: "BTC",
+            name: "Bitcoin",
+            shortName: "BTC",
+            price: "قیمت موجود نیست",
+            icon: "https://cryptologos.cc/logos/bitcoin-btc-logo.png",
+            chart: "/chart-to-bot-2.png"
+          }
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchCryptoPrices()
+  }, [language])
 
   return (
     <section className="relative py-16">
@@ -67,15 +74,24 @@ export function CryptoPriceList() {
 
           {/* Crypto List */}
           <div className="space-y-4">
-            {cryptoData.map((crypto) => (
+            {loading ? (
+              <div className="text-center py-8 text-gold">
+                {language === "fa" ? "در حال بارگذاری..." : "Loading..."}
+              </div>
+            ) : cryptoData.length === 0 ? (
+              <div className="text-center py-8 text-gold">
+                {language === "fa" ? "ارزی یافت نشد" : "No currencies found"}
+              </div>
+            ) : (
+              cryptoData.map((crypto) => (
               <div 
                 key={crypto.symbol}
-                className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-4 hover:bg-gold/5 transition-colors"
+                className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
               >
                 <div className="flex items-center justify-between">
                   {/* Left side - Icon, Short Name, Price */}
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8">
+                    <div className="w-10 h-10">
                       <Image 
                         src={crypto.icon}
                         alt={`${crypto.symbol} icon`}
@@ -91,12 +107,18 @@ export function CryptoPriceList() {
                     </div>
                   </div>
 
-                  {/* Right side - Chart with Price Above */}
                   <div className="text-right">
-                    <div className="font-bold text-foreground text-lg mb-1">
+                    <div className="font-bold text-foreground text-md !leading-[1]">
                       {crypto.price}
                     </div>
-                    <div className="w-16 h-10">
+                    {crypto.change !== undefined && (
+                      <div className={`text-xs font-medium ${
+                        crypto.change >= 0 ? 'text-green-600' : 'text-red-600'
+                      }`}>
+                        {crypto.change >= 0 ? '▲' : '▼'} {Math.abs(crypto.change).toFixed(2)}%
+                      </div>
+                    )}
+                    <div className="">
                       <Image 
                         src={crypto.chart}
                         alt={`${crypto.symbol} chart`}
@@ -108,22 +130,7 @@ export function CryptoPriceList() {
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* Button */}
-          <div className="mt-8 text-center">
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-gold to-amber-500 hover:from-amber-500 hover:to-gold text-navy font-semibold px-8 py-3 text-lg shadow-[0_0_40px_rgba(201,162,39,0.4)] hover:shadow-[0_0_60px_rgba(201,162,39,0.6)] transition-all duration-300"
-              style={{ 
-                fontFamily: language === "fa" 
-                  ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
-                  : "inherit" 
-              }}
-            >
-              {language === "fa" ? "شروع کنید" : "Get Started"}
-            </Button>
+            )))}
           </div>
         </div>
       </div>
