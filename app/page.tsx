@@ -15,8 +15,8 @@ export default function Home() {
       <PricesSection />
       <ServicesSection />
       <AboutSection />
-      <ContactSection />
       <PaymentMethodsSection />
+      <ContactSection />
       <Footer />
     </main>
   )
