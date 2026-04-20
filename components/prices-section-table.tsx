@@ -172,13 +172,13 @@ export function PricesSectionTable() {
             <Table>
               <TableHeader>
                 <TableRow className="border-gold/20">
-                  <TableHead className="text-gold font-semibold">
+                  <TableHead className={`text-gold font-semibold ${language === "fa" ? "text-right" : ""}`}>
                     {language === "fa" ? "ارز" : "Currency"}
                   </TableHead>
                   <TableHead className="text-gold font-semibold text-right">
                     {language === "fa" ? "قیمت" : "Price"}
                   </TableHead>
-                  <TableHead className="text-gold font-semibold text-right">
+                  <TableHead className={`text-gold font-semibold ${language === "fa" ? "text-left" : "text-right"}`}>
                     {language === "fa" ? "تغییر" : "Change"}
                   </TableHead>
                 </TableRow>
