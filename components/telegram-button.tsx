@@ -12,7 +12,7 @@ const content = {
     ariaLabel: "Chat with us on Telegram"
   },
   fa: {
-    buttonText: "çat dar telegram",
+    buttonText: "پیام در تلگرام",
     ariaLabel: "Chat with us on Telegram"
   }
 }

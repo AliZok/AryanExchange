@@ -338,12 +338,12 @@ export function ContactSection() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <WhatsAppButton 
               phoneNumber={t.contactInfo.phone}
-              message={language === "fa" ? "سلام، خواستم از خدمات شما استفاده کنم" : "Hello, I'm interested in your services"}
+              message={language === "fa" ? "سلام، می خواستم از خدمات شما استفاده کنم" : "Hello, I'm interested in your services"}
               className="px-8 py-3 text-lg"
             />
             <TelegramButton 
               username="ArianExchangee"
-              message={language === "fa" ? "سلام، خواستم از خدمات شما استفاده کنم" : "Hello, I'm interested in your services"}
+              message={language === "fa" ? "سلام، می خواستم از خدمات شما استفاده کنم" : "Hello, I'm interested in your services"}
               className="px-8 py-3 text-lg"
             />
           </div>

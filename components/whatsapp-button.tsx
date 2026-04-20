@@ -12,7 +12,7 @@ const content = {
     ariaLabel: "Chat with us on WhatsApp"
   },
   fa: {
-    buttonText: "چت در واتس‌اپ",
+    buttonText: "پیام در واتساپ",
     ariaLabel: "Chat with us on WhatsApp"
   }
 }
