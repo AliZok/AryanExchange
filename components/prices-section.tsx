@@ -157,7 +157,7 @@ export function PricesSection() {
   }
 
   return (
-    <section className="relative py-16">
+    <section id="prices" className="relative py-16">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background/95" />
       

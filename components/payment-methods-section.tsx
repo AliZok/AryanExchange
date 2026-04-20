@@ -74,7 +74,7 @@ export function PaymentMethodsSection() {
   const fontStyle = language === "fa" ? { fontFamily: IRAN_SANS_FONT } : {}
 
   return (
-    <section className="py-20 relative overflow-hidden">
+    <section id="payment" className="py-20 relative overflow-hidden">
       {/* Modern Background Design */}
       <div className="absolute inset-0">
         {/* Gradient Background */}

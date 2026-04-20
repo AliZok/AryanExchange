@@ -9,12 +9,18 @@ import Image from "next/image"
 
 const navLinks = {
   en: [
+    { href: "#prices", label: "Prices" },
     { href: "#services", label: "Services" },
     { href: "#about", label: "About" },
+    { href: "#payment", label: "Payment" },
+    { href: "#contact", label: "Contact" },
   ],
   fa: [
+    { href: "#prices", label: "قیمت" },
     { href: "#services", label: "خدمات" },
     { href: "#about", label: "درباره ما" },
+    { href: "#payment", label: "پرداخت" },
+    { href: "#contact", label: "تماس با ما" },
   ],
 }
 
