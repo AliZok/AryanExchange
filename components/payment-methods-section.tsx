@@ -41,26 +41,26 @@ const content = {
     subtitle: "چندین راه پرداخت مختلف برای راحتی شما",
     methods: [
       {
-        name: "VISA",
-        description: "kart haye credit & debit",
+        name: "ویزا کارت",
+        description: "کارت های کردیت و دبیت",
         icon: CreditCard,
         bgImage: "/aryan-exchange-logo-square-without-bg.png"
       },
       {
-        name: "SWIFT",
-        description: "enteghal vajeh beynolmelali",
+        name: "سوییفت",
+        description: "انقال وجه بین المللی",
         icon: Building2,
         bgImage: "/aryan-exchange-logo-1.jpg"
       },
       {
-        name: "Crypto",
-        description: "arz haye digital",
+        name: "کریپتو",
+        description: "ارز های دیجیتال",
         icon: Coins,
         bgImage: "/aryan-exchange-logo-2.jpg"
       },
       {
-        name: "nagdi",
-        description: "arz fiziki",
+        name: "نقدی",
+        description: "ارز فیزیکی",
         icon: Banknote,
         bgImage: "/aryan-exchange-table.jpg"
       }
