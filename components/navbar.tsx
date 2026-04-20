@@ -95,7 +95,7 @@ export function Navbar() {
             <LanguageToggle />
             <Button 
               onClick={handleCall}
-              className="bg-gold hover:bg-gold-dark text-navy font-semibold flex items-center gap-2"
+              className="bg-gold hover:bg-gold-dark text-navy font-semibold flex items-center gap-2 cursor-pointer"
             >
               <Phone className="w-4 h-4" />
               {t.cta}
@@ -106,7 +106,7 @@ export function Navbar() {
           <div className="md:hidden flex items-center gap-2">
             <LanguageToggle />
             <button
-              className="p-2 text-foreground"
+              className="p-2 text-foreground cursor-pointer"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -130,7 +130,7 @@ export function Navbar() {
               ))}
               <Button 
                 onClick={handleCall}
-                className="bg-gold hover:bg-gold-dark text-navy font-semibold w-full mt-2 flex items-center justify-center gap-2"
+                className="bg-gold hover:bg-gold-dark text-navy font-semibold w-full mt-2 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Phone className="w-4 h-4" />
                 {t.cta}

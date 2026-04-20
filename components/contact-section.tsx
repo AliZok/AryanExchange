@@ -321,7 +321,7 @@ export function ContactSection() {
               <Button 
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold disabled:opacity-50"
+                className="w-full bg-gold hover:bg-gold-dark text-navy font-semibold disabled:opacity-50 cursor-pointer"
               >
                 {isSubmitting 
                   ? (language === "fa" ? "در حال ارسال..." : "Sending...")

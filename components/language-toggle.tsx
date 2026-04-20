@@ -12,7 +12,7 @@ export function LanguageToggle() {
       variant="outline"
       size="sm"
       onClick={() => setLanguage(language === "en" ? "fa" : "en")}
-      className="border-gold/50 bg-gold/10 hover:bg-gold/20 text-gold hover:text-gold gap-2 font-medium"
+      className="border-gold/50 bg-gold/10 hover:bg-gold/20 text-gold hover:text-gold gap-2 font-medium cursor-pointer"
     >
       <Languages className="w-4 h-4" />
       <span className="hidden sm:inline">

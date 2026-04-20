@@ -48,7 +48,7 @@ export function WhatsAppButton({
       onClick={handleWhatsAppClick}
       variant={variant}
       size={size}
-      className={`bg-green-500 hover:bg-green-600 text-white font-medium transition-colors ${className}`}
+      className={`bg-green-500 hover:bg-green-600 text-white font-medium transition-colors cursor-pointer ${className}`}
       aria-label={t.ariaLabel}
       style={fontStyle}
     >

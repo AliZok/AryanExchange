@@ -48,7 +48,7 @@ export function TelegramButton({
       onClick={handleTelegramClick}
       variant={variant}
       size={size}
-      className={`bg-blue-500 hover:bg-blue-600 text-white font-medium transition-colors ${className}`}
+      className={`bg-blue-500 hover:bg-blue-600 text-white font-medium transition-colors cursor-pointer ${className}`}
       aria-label={t.ariaLabel}
       style={fontStyle}
     >

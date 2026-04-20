@@ -227,7 +227,8 @@ export function HeroSection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button 
             size="lg" 
-            className="bg-gradient-to-r from-gold to-amber-500 hover:from-amber-500 hover:to-gold text-navy font-semibold px-8 py-6 text-lg group shadow-[0_0_40px_rgba(201,162,39,0.4)] hover:shadow-[0_0_60px_rgba(201,162,39,0.6)] transition-all duration-300"
+            className="bg-gradient-to-r from-gold to-amber-500 hover:from-amber-500 hover:to-gold text-navy font-semibold px-8 py-6 text-lg group shadow-[0_0_40px_rgba(201,162,39,0.4)] hover:shadow-[0_0_60px_rgba(201,162,39,0.6)] transition-all duration-300 cursor-pointer"
+            onClick={(e) => handleSmoothScroll(e, 'contact')}
           >
             {t.cta1}
             <ArrowIcon className={`${isRTL ? "mr-2" : "ml-2"} w-5 h-5 group-hover:${isRTL ? "-translate-x-1" : "translate-x-1"} transition-transform`} />
@@ -235,7 +236,7 @@ export function HeroSection() {
           <Button 
             size="lg" 
             variant="outline" 
-            className="border-gold/50 text-gold hover:bg-gold/10 hover:text-gold hover:border-gold/70 px-8 py-6 text-lg backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(201,162,39,0.1)]"
+            className="border-gold/50 text-gold hover:bg-gold/10 hover:text-gold hover:border-gold/70 px-8 py-6 text-lg backdrop-blur-md transition-all duration-300 shadow-[0_0_20px_rgba(201,162,39,0.1)] cursor-pointer"
             onClick={(e) => handleSmoothScroll(e, 'services')}
           >
             <Globe className={`${isRTL ? "ml-2" : "mr-2"} w-5 h-5`} />
