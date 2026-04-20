@@ -1,6 +1,7 @@
 "use client"
 
 import { TrendingUp, TrendingDown, DollarSign, Coins, Bitcoin } from "lucide-react"
+import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
 import { useEffect, useState } from "react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
@@ -46,7 +47,7 @@ const mockPrices: PriceItem[] = [
     nameFa: "بیت‌کوین به دلار",
     price: 0,
     change: 2.3,
-    icon: <Bitcoin className="w-5 h-5" />
+    icon: <Image src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin" width={20} height={20} />
   },
   {
     symbol: "TRX/USD",
@@ -54,7 +55,7 @@ const mockPrices: PriceItem[] = [
     nameFa: "ترون به دلار",
     price: 0,
     change: 1.2,
-    icon: <Coins className="w-5 h-5" />
+    icon: <Image src="https://cryptologos.cc/logos/tron-trx-logo.png" alt="TRON" width={20} height={20} />
   },
   {
     symbol: "LTC/USD",
@@ -62,7 +63,7 @@ const mockPrices: PriceItem[] = [
     nameFa: "لایت‌کوین به دلار",
     price: 0,
     change: -0.8,
-    icon: <Coins className="w-5 h-5" />
+    icon: <Image src="https://cryptologos.cc/logos/litecoin-ltc-logo.png" alt="Litecoin" width={20} height={20} />
   },
   {
     symbol: "USDT/USD",
@@ -70,7 +71,7 @@ const mockPrices: PriceItem[] = [
     nameFa: "تتر به دلار",
     price: 0,
     change: 0.01,
-    icon: <Coins className="w-5 h-5" />
+    icon: <Image src="https://cryptologos.cc/logos/tether-usdt-logo.png" alt="Tether" width={20} height={20} />
   }
 ]
 
