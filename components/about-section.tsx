@@ -34,7 +34,7 @@ const content = {
     title: "درباره صرافی آرین",
     subtitle: "ما که هستیم",
     description: "صرافی آرین با تمرکز بر شفافیت و امنیت، تمامی نیازهای ارزی و دیجیتال شما را پوشش می‌دهد. ما با بهره‌گیری از زیرساخت‌های مالی در دبی، ارمنستان، اروپا و ایران، تجربه‌ای متفاوت از تبادلات مالی بین‌المللی را برایتان رقم می‌زنیم.",
-    stat1: "سال تجربه",
+    stat1: "",
     stat2: "نوع ارز",
     stat3: "پشتیبانی",
   },
@@ -90,13 +90,9 @@ export function AboutSection() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 p-6 bg-card/50 rounded-xl border border-border/50">
+            <div className="grid grid-cols-2 gap-4 p-6 bg-card/50 rounded-xl border border-border/50">
               <div className="text-center">
                 <div className="text-3xl font-bold text-gold">+10</div>
-                <div className="text-sm text-muted-foreground" style={fontStyle}>{t.stat1}</div>
-              </div>
-              <div className="text-center border-x border-border/50">
-                <div className="text-3xl font-bold text-gold">+50</div>
                 <div className="text-sm text-muted-foreground" style={fontStyle}>{t.stat2}</div>
               </div>
               <div className="text-center">

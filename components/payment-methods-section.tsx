@@ -37,8 +37,8 @@ const content = {
     ]
   },
   fa: {
-    title: "raveshe haye pardakht",
-    subtitle: "chandin rahaye pardakht baraye rahat-e shoma",
+    title: "روش های پرداخت",
+    subtitle: "چندین راه پرداخت مختلف برای راحتی شما",
     methods: [
       {
         name: "VISA",
@@ -180,7 +180,7 @@ export function PaymentMethodsSection() {
               <div className="absolute inset-0 rounded-full bg-gold/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             </div>
             <span className="text-sm font-medium bg-gradient-to-r from-gold to-amber-400 bg-clip-text text-transparent" style={fontStyle}>
-              {language === "fa" ? "hamye rahaye pardakht ma amnist" : "All payment methods available"}
+              {language === "fa" ? "تمام راه های پرداخت در دسترس" : "All payment methods available"}
             </span>
           </div>
           
