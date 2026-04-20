@@ -16,6 +16,7 @@ export default function AdminDashboard() {
     symbol: '',
     image: '',
     buy_price: 0,
+    price: 0,
     sell_price: 0
   });
   const router = useRouter();
@@ -187,6 +188,7 @@ export default function AdminDashboard() {
           name: newCurrency.name,
           symbol: newCurrency.symbol,
           image: newCurrency.image,
+          price: newCurrency.price,
           buy_price: newCurrency.buy_price,
           sell_price: newCurrency.sell_price,
           updated_at: new Date().toISOString()
@@ -197,7 +199,7 @@ export default function AdminDashboard() {
         alert('خطا در ایجاد ارز: ' + error.message);
       } else {
         alert('ارز با موفقیت ایجاد شد');
-        setNewCurrency({ name: '', symbol: '', image: '', buy_price: 0, sell_price: 0 });
+        setNewCurrency({ name: '', symbol: '', image: '', price: 0, buy_price: 0, sell_price: 0 });
         setShowCreateForm(false);
         loadDashboardData();
       }
@@ -359,7 +361,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={newCurrency.name}
                           onChange={(e) => setNewCurrency({...newCurrency, name: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           placeholder="مثال: بیت‌کوین"
                         />
                       </div>
@@ -369,7 +371,7 @@ export default function AdminDashboard() {
                           type="text"
                           value={newCurrency.symbol}
                           onChange={(e) => setNewCurrency({...newCurrency, symbol: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           placeholder="مثال: BTC"
                         />
                       </div>
@@ -379,8 +381,18 @@ export default function AdminDashboard() {
                           type="text"
                           value={newCurrency.image}
                           onChange={(e) => setNewCurrency({...newCurrency, image: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           placeholder="https://example.com/image.png"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت اصلی (تومان)</label>
+                        <input
+                          type="number"
+                          value={newCurrency.price}
+                          onChange={(e) => setNewCurrency({...newCurrency, price: parseFloat(e.target.value) || 0})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                          step="0.01"
                         />
                       </div>
                       <div>
@@ -389,7 +401,7 @@ export default function AdminDashboard() {
                           type="number"
                           value={newCurrency.buy_price}
                           onChange={(e) => setNewCurrency({...newCurrency, buy_price: parseFloat(e.target.value) || 0})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           step="0.01"
                         />
                       </div>
@@ -399,7 +411,7 @@ export default function AdminDashboard() {
                           type="number"
                           value={newCurrency.sell_price}
                           onChange={(e) => setNewCurrency({...newCurrency, sell_price: parseFloat(e.target.value) || 0})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           step="0.01"
                         />
                       </div>
@@ -408,7 +420,7 @@ export default function AdminDashboard() {
                       <button
                         onClick={() => {
                           setShowCreateForm(false);
-                          setNewCurrency({ name: '', symbol: '', image: '', buy_price: 0, sell_price: 0 });
+                          setNewCurrency({ name: '', symbol: '', image: '', price: 0, buy_price: 0, sell_price: 0 });
                         }}
                         className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                       >
@@ -452,7 +464,7 @@ export default function AdminDashboard() {
                                   type="text"
                                   value={currency.name}
                                   onChange={(e) => updatePrice(currency.id, 'name', e.target.value)}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                                 />
                               </div>
                               <div>
@@ -461,7 +473,7 @@ export default function AdminDashboard() {
                                   type="text"
                                   value={currency.symbol}
                                   onChange={(e) => updatePrice(currency.id, 'symbol', e.target.value)}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                                 />
                               </div>
                               <div>
@@ -470,7 +482,17 @@ export default function AdminDashboard() {
                                   type="text"
                                   value={currency.image || ''}
                                   onChange={(e) => updatePrice(currency.id, 'image', e.target.value)}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت اصلی (تومان)</label>
+                                <input
+                                  type="number"
+                                  value={currency.price || 0}
+                                  onChange={(e) => updatePrice(currency.id, 'price', parseFloat(e.target.value))}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                                  step="0.01"
                                 />
                               </div>
                               <div>
@@ -479,7 +501,7 @@ export default function AdminDashboard() {
                                   type="number"
                                   value={currency.buy_price || currency.buyPrice || 0}
                                   onChange={(e) => updatePrice(currency.id, 'buy_price', parseFloat(e.target.value))}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                                   step="0.01"
                                 />
                               </div>
@@ -489,7 +511,7 @@ export default function AdminDashboard() {
                                   type="number"
                                   value={currency.sell_price || currency.sellPrice || 0}
                                   onChange={(e) => updatePrice(currency.id, 'sell_price', parseFloat(e.target.value))}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                                   step="0.01"
                                 />
                               </div>
@@ -506,6 +528,7 @@ export default function AdminDashboard() {
                                   name: currency.name,
                                   symbol: currency.symbol,
                                   image: currency.image,
+                                  price: currency.price || 0,
                                   buy_price: currency.buy_price || currency.buyPrice,
                                   sell_price: currency.sell_price || currency.sellPrice
                                 })}
@@ -539,7 +562,13 @@ export default function AdminDashboard() {
                                 </span>
                               </div>
                             </div>
-                            <div className="grid grid-cols-2 gap-4 mb-3">
+                            <div className="grid grid-cols-3 gap-4 mb-3">
+                              <div className="bg-white p-3 rounded border">
+                                <p className="text-xs text-gray-600 mb-1">قیمت اصلی</p>
+                                <p className="text-lg font-bold text-blue-600">
+                                  {(currency.price || 0).toLocaleString('fa-IR')} تومان
+                                </p>
+                              </div>
                               <div className="bg-white p-3 rounded border">
                                 <p className="text-xs text-gray-600 mb-1">قیمت خرید</p>
                                 <p className="text-lg font-bold text-green-600">
