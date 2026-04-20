@@ -62,7 +62,7 @@ export default function AdminDashboard() {
       const { data: currenciesData, error: currenciesError } = await supabase
         .from('currencies')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('updated_at', { ascending: false });
 
       // Fetch messages from Supabase
       const { data: messagesData, error: messagesError } = await supabase
@@ -189,7 +189,6 @@ export default function AdminDashboard() {
           image: newCurrency.image,
           buy_price: newCurrency.buy_price,
           sell_price: newCurrency.sell_price,
-          created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         });
 
