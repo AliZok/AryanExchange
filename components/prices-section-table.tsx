@@ -1,0 +1,254 @@
+"use client"
+
+import { TrendingUp, TrendingDown, DollarSign, Coins, Bitcoin } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
+import { useEffect, useState } from "react"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+
+interface PriceItem {
+  symbol: string
+  name: string
+  nameFa: string
+  price: number
+  change: number
+  icon: React.ReactNode
+  isCrypto?: boolean
+}
+
+const mockPrices: PriceItem[] = [
+  {
+    symbol: "AMD/IRR",
+    name: "Dram per Iranian Toman",
+    nameFa: "درام به تومان ایرانی",
+    price: 0,
+    change: 0,
+    icon: <Coins className="w-5 h-5" />
+  },
+  {
+    symbol: "USD/AMD",
+    name: "Dollar per Dram",
+    nameFa: "دلار به درام",
+    price: 0,
+    change: -0.1,
+    icon: <DollarSign className="w-5 h-5" />
+  },
+  {
+    symbol: "USD/IRR",
+    name: "Dollar per Iranian Rial",
+    nameFa: "دلار به ریال ایرانی",
+    price: 0,
+    change: 0.2,
+    icon: <DollarSign className="w-5 h-5" />
+  },
+  {
+    symbol: "BTC/USD",
+    name: "Bitcoin per Dollar",
+    nameFa: "بیت‌کوین به دلار",
+    price: 0,
+    change: 2.3,
+    icon: <Bitcoin className="w-5 h-5" />
+  },
+  {
+    symbol: "TRX/USD",
+    name: "TRON per Dollar",
+    nameFa: "ترون به دلار",
+    price: 0,
+    change: 1.2,
+    icon: <Coins className="w-5 h-5" />
+  },
+  {
+    symbol: "LTC/USD",
+    name: "Litecoin per Dollar",
+    nameFa: "لایت‌کوین به دلار",
+    price: 0,
+    change: -0.8,
+    icon: <Coins className="w-5 h-5" />
+  },
+  {
+    symbol: "USDT/USD",
+    name: "Tether per Dollar",
+    nameFa: "تتر به دلار",
+    price: 0,
+    change: 0.01,
+    icon: <Coins className="w-5 h-5" />
+  }
+]
+
+export function PricesSectionTable() {
+  const { language, isRTL } = useLanguage()
+  const [prices, setPrices] = useState(mockPrices)
+  const [currentTime, setCurrentTime] = useState<string>("")
+
+  // Fetch real crypto prices from CoinGecko API
+  const fetchCryptoPrices = async () => {
+    try {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
+      const response = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tron,litecoin,tether&vs_currencies=usd&include_24hr_change=true',
+        {
+          headers: {
+            'Accept': 'application/json',
+          },
+          signal: controller.signal
+        }
+      )
+      
+      clearTimeout(timeoutId)
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid API response format')
+      }
+      
+      setPrices(prevPrices => 
+        prevPrices.map(price => {
+          // Map symbol to correct CoinGecko ID
+          let cryptoId = null
+          if (price.symbol.includes('BTC')) cryptoId = 'bitcoin'
+          else if (price.symbol.includes('TRX')) cryptoId = 'tron'
+          else if (price.symbol.includes('LTC')) cryptoId = 'litecoin'
+          else if (price.symbol.includes('USDT')) cryptoId = 'tether'
+          
+          const cryptoData = cryptoId ? data[cryptoId] : null
+          
+          if (cryptoData && typeof cryptoData === 'object' && 'usd' in cryptoData) {
+            return {
+              ...price,
+              price: typeof cryptoData.usd === 'number' ? cryptoData.usd : price.price,
+              change: typeof cryptoData.usd_24h_change === 'number' ? cryptoData.usd_24h_change : 0
+            }
+          }
+          return price
+        })
+      )
+    } catch (error) {
+      console.error('Failed to fetch crypto prices:', error)
+      // Silently fail to avoid disrupting user experience
+      // Could add user notification here if needed
+    }
+  }
+
+  // Set current time only on client side to avoid hydration mismatch
+  useEffect(() => {
+    setCurrentTime(new Date().toLocaleTimeString())
+  }, [])
+
+  // Initial fetch and periodic updates
+  useEffect(() => {
+    fetchCryptoPrices()
+    const interval = setInterval(fetchCryptoPrices, 60000) // Update every minute
+    return () => clearInterval(interval)
+  }, [])
+
+  const formatPrice = (price: number, symbol: string) => {
+    if (symbol.includes("IRR")) {
+      return `${price.toFixed(2)}`
+    }
+    if (price >= 1000) {
+      return `${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+    }
+    return `${price.toFixed(2)}`
+  }
+
+  return (
+    <section id="prices" className="relative py-16">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background/95" />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-1/4 w-72 h-72 bg-gold/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-gold/20">
+                  <TableHead className="text-gold font-semibold">
+                    {language === "fa" ? "ارز" : "Currency"}
+                  </TableHead>
+                  <TableHead className="text-gold font-semibold text-right">
+                    {language === "fa" ? "قیمت" : "Price"}
+                  </TableHead>
+                  <TableHead className="text-gold font-semibold text-right">
+                    {language === "fa" ? "تغییر" : "Change"}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {prices.map((item) => (
+                  <TableRow key={item.symbol} className="border-gold/10 hover:bg-gold/5 transition-colors">
+                    <TableCell className="font-medium">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-gold/20 text-gold">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div className="font-semibold text-foreground">
+                            {item.symbol}
+                          </div>
+                          <div className="text-sm text-foreground/70">
+                            {language === "fa" ? item.nameFa : item.name}
+                          </div>
+                        </div>
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div 
+                        className="text-xl font-bold text-gold"
+                        style={{ 
+                          fontFamily: language === "fa" 
+                            ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
+                            : "inherit" 
+                        }}
+                      >
+                        {item.symbol === "USD/IRR" ? "IRR " : 
+                         item.symbol === "USD/AMD" ? "AMD " : 
+                         item.symbol.includes("/USD") ? "$" : ""}
+                        {formatPrice(item.price, item.symbol)}
+                      </div>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <div className={`flex items-center justify-end gap-1 ${
+                        item.change > 0 ? 'text-green-500' : 
+                        item.change < 0 ? 'text-red-500' : 
+                        'text-foreground/70'
+                      }`}>
+                        {item.change > 0 && <TrendingUp className="w-4 h-4" />}
+                        {item.change < 0 && <TrendingDown className="w-4 h-4" />}
+                        <span className="font-medium">
+                          {item.change > 0 ? '+' : ''}{item.change.toFixed(2)}%
+                        </span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          {/* Last updated indicator */}
+          <div className="text-center mt-6 text-xs text-foreground/50">
+            <span 
+              style={{ 
+                fontFamily: language === "fa" 
+                  ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
+                  : "inherit" 
+              }}
+            >
+              {language === "fa" ? "آخرین به‌روزرسانی" : "Last updated"}: {currentTime}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
