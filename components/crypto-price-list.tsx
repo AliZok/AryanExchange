@@ -21,7 +21,7 @@ export function CryptoPriceList() {
             symbol: crypto.symbol,
             name: language === "fa" ? crypto.name_fa : crypto.name,
             shortName: crypto.symbol,
-            price: crypto.price_irt ? `${crypto.price_irt.toLocaleString('fa-IR')} تومان` : "قیمت موجود نیست",
+            price: crypto.price_usd ? `$${crypto.price_usd.toLocaleString()}` : "Price not available",
             icon: crypto.icon,
             chart: crypto.change_24h >= 0 ? "/chart-to-top.png" : "/chart-to-bot-2.png",
             change: crypto.change_24h
@@ -69,7 +69,7 @@ export function CryptoPriceList() {
                 : "inherit" 
             }}
           >
-            {language === "fa" ? "صرافی آنلاین آرین" : "Online Aryan Exchange"}
+            {language === "fa" ? "ارز ها" : "Online Aryan Exchange"}
           </h2>
 
           {/* Crypto List */}
@@ -111,20 +111,14 @@ export function CryptoPriceList() {
                     <div className="font-bold text-foreground text-md !leading-[1]">
                       {crypto.price}
                     </div>
-                    {crypto.change !== undefined && (
-                      <div className={`text-xs font-medium ${
-                        crypto.change >= 0 ? 'text-green-600' : 'text-red-600'
-                      }`}>
-                        {crypto.change >= 0 ? '▲' : '▼'} {Math.abs(crypto.change).toFixed(2)}%
-                      </div>
-                    )}
+
                     <div className="">
                       <Image 
                         src={crypto.chart}
                         alt={`${crypto.symbol} chart`}
                         width={64}
                         height={40}
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain min-w-[120px]"
                       />
                     </div>
                   </div>

@@ -8,18 +8,8 @@ const DEFAULT_CRYPTOS = [
   'bitcoin',      // BTC
   'ethereum',     // ETH
   'tether',       // USDT
-  'binancecoin',  // BNB
-  'cardano',      // ADA
-  'solana',       // SOL
-  'polkadot',     // DOT
-  'dogecoin',     // DOGE
-  'avalanche-2',  // AVAX
-  'chainlink',    // LINK
-  'polygon',      // MATIC
   'tron',         // TRX
   'litecoin',     // LTC
-  'stellar',      // XLM
-  'cosmos'        // ATOM
 ];
 
 export async function GET() {
