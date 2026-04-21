@@ -186,7 +186,7 @@ export function HeroSection() {
         <div className="relative inline-flex items-center justify-center mb-8">
           <div className="absolute w-40 h-40 bg-gold/20 rounded-full blur-3xl animate-pulse" />
           <div className="absolute w-32 h-32 bg-amber-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: "0.5s" }} />
-          <div className="relative w-[120px] h-[120px] rounded-lg border border-gold/50 bg-gradient-to-b from-gold/20 via-gold/5 to-transparent backdrop-blur-md shadow-[0_0_80px_rgba(201,162,39,0.4)] overflow-hidden">
+          <div className="relative w-lg-[110px] w-lg-[110px] w-[90px] h-[90px] rounded-lg border border-gold/50 bg-gradient-to-b from-gold/20 via-gold/5 to-transparent backdrop-blur-md shadow-[0_0_80px_rgba(201,162,39,0.4)] overflow-hidden">
             <Image
               src="/aryan-exchange-logo-square-without-bg.png"
               alt="Aryan Exchange Logo"
