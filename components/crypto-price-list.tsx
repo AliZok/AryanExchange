@@ -24,7 +24,9 @@ export function CryptoPriceList() {
             shortName: crypto.symbol,
             price: crypto.price_usd ? `$${crypto.price_usd.toLocaleString()}` : "Price not available",
             icon: crypto.icon,
-            chart: crypto.change_24h >= 0 ? "/chart-to-top.png" : "/chart-to-bot-2.png",
+            chart: crypto.symbol === "USDT"
+              ? "/flat.PNG"
+              : (crypto.change_24h >= 0 ? "/chart-to-top.png" : "/chart-to-bot-2.png"),
             change: crypto.change_24h
           }))
           setCryptoData(transformedCryptoData)
@@ -71,90 +73,90 @@ export function CryptoPriceList() {
     <section className="relative py-16">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background/95" />
-      
+
       {/* Decorative elements */}
       <div className="absolute top-0 left-1/4 w-72 h-72 bg-gold/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
-      
+
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-md mx-auto">
           {/* Title */}
-          <h2 
+          <h2
             className="text-2xl font-bold text-center mb-8 text-gold"
-            style={{ 
-              fontFamily: language === "fa" 
-                ? "'IranSans', 'Tahoma', 'Arial', sans-serif" 
-                : "inherit" 
+            style={{
+              fontFamily: language === "fa"
+                ? "'IranSans', 'Tahoma', 'Arial', sans-serif"
+                : "inherit"
             }}
           >
             {language === "fa" ? "ارز ها" : "Online Aryan Exchange"}
           </h2>
 
-                {/* Currencies List */}
+          {/* Currencies List */}
           <div className="space-y-4 mt-8 mb-3">
-         
+
             {
               currenciesData.map((currency) => (
-              <div 
-                key={currency.symbol}
-                className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  {/* Left side - Icon, Name */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10">
-                      {currency.icon ? (
-                        <Image 
-                          src={currency.icon}
-                          alt={`${currency.symbol} icon`}
-                          width={32}
-                          height={32}
-                          className="w-full h-full object-contain rounded-md"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
-                          <span className="text-gold font-bold text-sm">
-                            {language === "fa" 
-                              ? (currency.name_farsi?.charAt(0)?.toUpperCase() || currency.name?.charAt(0)?.toUpperCase() || 'C')
-                              : (currency.name_english?.charAt(0)?.toUpperCase() || currency.name?.charAt(0)?.toUpperCase() || 'C')
-                            }
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <div className="font-bold text-foreground text-lg">
-                        {language === "fa" 
-                          ? (currency.name_farsi || currency.name)
-                          : (currency.name_english || currency.name)
-                        }
+                <div
+                  key={currency.symbol}
+                  className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    {/* Left side - Icon, Name */}
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10">
+                        {currency.icon ? (
+                          <Image
+                            src={currency.icon}
+                            alt={`${currency.symbol} icon`}
+                            width={32}
+                            height={32}
+                            className="w-full h-full object-contain rounded-md"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
+                            <span className="text-gold font-bold text-sm">
+                              {language === "fa"
+                                ? (currency.name_farsi?.charAt(0)?.toUpperCase() || currency.name?.charAt(0)?.toUpperCase() || 'C')
+                                : (currency.name_english?.charAt(0)?.toUpperCase() || currency.name?.charAt(0)?.toUpperCase() || 'C')
+                              }
+                            </span>
+                          </div>
+                        )}
                       </div>
-                      {currency.shortName && (
-                        <div className="text-sm text-foreground/70">
-                          {currency.shortName}
+                      <div>
+                        <div className="font-bold text-foreground text-lg">
+                          {language === "fa"
+                            ? (currency.name_farsi || currency.name)
+                            : (currency.name_english || currency.name)
+                          }
                         </div>
-                      )}
+                        {currency.shortName && (
+                          <div className="text-sm text-foreground/70">
+                            {currency.shortName}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="text-right">
-                    <div className="font-bold text-foreground text-md !leading-[1]">
-                      {currency.price}
-                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-foreground text-md !leading-[1]">
+                        {currency.price}
+                      </div>
 
-                    <div className="">
-                      <Image 
-                        src={currency.chart}
-                        alt={`${currency.symbol} chart`}
-                        width={64}
-                        height={40}
-                        className="w-full h-full object-contain min-w-[120px]"
-                      />
+                      <div className="">
+                        <Image
+                          src={currency.chart}
+                          alt={`${currency.symbol} chart`}
+                          width={64}
+                          height={40}
+                          className="w-full h-full object-contain min-w-[120px]"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
 
           {/* Crypto List */}
@@ -169,63 +171,63 @@ export function CryptoPriceList() {
               </div>
             ) : (
               cryptoData.map((crypto) => (
-              <div 
-                key={crypto.symbol}
-                className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
-              >
-                <div className="flex items-center justify-between">
-                  {/* Left side - Icon, Name */}
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10">
-                      {crypto.icon ? (
-                        <Image 
-                          src={crypto.icon}
-                          alt={`${crypto.symbol} icon`}
-                          width={32}
-                          height={32}
-                          className="w-full h-full object-contain"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
-                          <span className="text-gold font-bold text-sm">
-                            {crypto.name?.charAt(0)?.toUpperCase() || 'C'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div>
-                      <div className="font-bold text-foreground text-lg">
-                        {crypto.name}
+                <div
+                  key={crypto.symbol}
+                  className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    {/* Left side - Icon, Name */}
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10">
+                        {crypto.icon ? (
+                          <Image
+                            src={crypto.icon}
+                            alt={`${crypto.symbol} icon`}
+                            width={32}
+                            height={32}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
+                            <span className="text-gold font-bold text-sm">
+                              {crypto.name?.charAt(0)?.toUpperCase() || 'C'}
+                            </span>
+                          </div>
+                        )}
                       </div>
-                      {crypto.shortName && (
-                        <div className="text-sm text-foreground/70">
-                          {crypto.shortName}
+                      <div>
+                        <div className="font-bold text-foreground text-lg">
+                          {crypto.name}
                         </div>
-                      )}
+                        {crypto.shortName && (
+                          <div className="text-sm text-foreground/70">
+                            {crypto.shortName}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="text-right">
-                    <div className="font-bold text-foreground text-md !leading-[1]">
-                      {crypto.price}
-                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-foreground text-md !leading-[1]">
+                        {crypto.price}
+                      </div>
 
-                    <div className="">
-                      <Image 
-                        src={crypto.chart}
-                        alt={`${crypto.symbol} chart`}
-                        width={64}
-                        height={40}
-                        className="w-full h-full object-contain min-w-[120px]"
-                      />
+                      <div className="">
+                        <Image
+                          src={crypto.chart}
+                          alt={`${crypto.symbol} chart`}
+                          width={64}
+                          height={40}
+                          className="w-full h-full object-contain min-w-[120px]"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )))}
+              )))}
           </div>
 
-    
+
         </div>
       </div>
     </section>
