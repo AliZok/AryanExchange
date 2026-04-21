@@ -37,6 +37,8 @@ export function CryptoPriceList() {
           const transformedCurrencies = currenciesResult.map(currency => ({
             symbol: currency.code || currency.id,
             name: currency.name,
+            name_farsi: currency.name_farsi,
+            name_english: currency.name_english,
             shortName: currency.code || '',
             price: currency.price || "Price not available",
             icon: currency.image,
@@ -115,19 +117,25 @@ export function CryptoPriceList() {
                           alt={`${currency.symbol} icon`}
                           width={32}
                           height={32}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain rounded-md"
                         />
                       ) : (
                         <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
                           <span className="text-gold font-bold text-sm">
-                            {currency.name?.charAt(0)?.toUpperCase() || 'C'}
+                            {language === "fa" 
+                              ? (currency.name_farsi?.charAt(0)?.toUpperCase() || currency.name?.charAt(0)?.toUpperCase() || 'C')
+                              : (currency.name_english?.charAt(0)?.toUpperCase() || currency.name?.charAt(0)?.toUpperCase() || 'C')
+                            }
                           </span>
                         </div>
                       )}
                     </div>
                     <div>
                       <div className="font-bold text-foreground text-lg">
-                        {currency.name}
+                        {language === "fa" 
+                          ? (currency.name_farsi || currency.name)
+                          : (currency.name_english || currency.name)
+                        }
                       </div>
                       {currency.shortName && (
                         <div className="text-sm text-foreground/70">
