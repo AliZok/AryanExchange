@@ -8,16 +8,17 @@ import { useState, useEffect } from "react"
 export function CryptoPriceList() {
   const { language } = useLanguage()
   const [cryptoData, setCryptoData] = useState([])
+  const [currenciesData, setCurrenciesData] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchCryptoPrices = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch('/api/crypto-prices')
-        if (response.ok) {
-          const result = await response.json()
-          // Transform the data to match the expected format
-          const transformedData = result.data.map(crypto => ({
+        // Fetch crypto prices
+        const cryptoResponse = await fetch('/api/crypto-prices')
+        if (cryptoResponse.ok) {
+          const cryptoResult = await cryptoResponse.json()
+          const transformedCryptoData = cryptoResult.data.map(crypto => ({
             symbol: crypto.symbol,
             name: language === "fa" ? crypto.name_fa : crypto.name,
             shortName: crypto.symbol,
@@ -26,10 +27,25 @@ export function CryptoPriceList() {
             chart: crypto.change_24h >= 0 ? "/chart-to-top.png" : "/chart-to-bot-2.png",
             change: crypto.change_24h
           }))
-          setCryptoData(transformedData)
+          setCryptoData(transformedCryptoData)
+        }
+
+        // Fetch currencies
+        const currenciesResponse = await fetch('/api/currencies')
+        if (currenciesResponse.ok) {
+          const currenciesResult = await currenciesResponse.json()
+          const transformedCurrencies = currenciesResult.map(currency => ({
+            symbol: currency.code || currency.id,
+            name: currency.name,
+            shortName: currency.code || '',
+            price: currency.price || "Price not available",
+            icon: currency.image,
+            chart: "/chart-to-top.png"
+          }))
+          setCurrenciesData(transformedCurrencies)
         }
       } catch (error) {
-        console.error('Error fetching crypto prices:', error)
+        console.error('Error fetching data:', error)
         // Fallback to default data if API fails
         setCryptoData([
           {
@@ -46,7 +62,7 @@ export function CryptoPriceList() {
       }
     }
 
-    fetchCryptoPrices()
+    fetchData()
   }, [language])
 
   return (
@@ -72,6 +88,75 @@ export function CryptoPriceList() {
             {language === "fa" ? "ارز ها" : "Online Aryan Exchange"}
           </h2>
 
+                {/* Currencies List */}
+          <div className="space-y-4 mt-8 mb-3">
+         
+            {loading ? (
+              <div className="text-center py-4 text-gold">
+                {language === "fa" ? "در حال بارگذاری..." : "Loading..."}
+              </div>
+            ) : currenciesData.length === 0 ? (
+              <div className="text-center py-4 text-gold">
+                {language === "fa" ? "ارزی یافت نشد" : "No currencies found"}
+              </div>
+            ) : (
+              currenciesData.map((currency) => (
+              <div 
+                key={currency.symbol}
+                className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
+              >
+                <div className="flex items-center justify-between">
+                  {/* Left side - Icon, Name */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10">
+                      {currency.icon ? (
+                        <Image 
+                          src={currency.icon}
+                          alt={`${currency.symbol} icon`}
+                          width={32}
+                          height={32}
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
+                          <span className="text-gold font-bold text-sm">
+                            {currency.name?.charAt(0)?.toUpperCase() || 'C'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div>
+                      <div className="font-bold text-foreground text-lg">
+                        {currency.name}
+                      </div>
+                      {currency.shortName && (
+                        <div className="text-sm text-foreground/70">
+                          {currency.shortName}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="font-bold text-foreground text-md !leading-[1]">
+                      {currency.price}
+                    </div>
+
+                    <div className="">
+                      <Image 
+                        src={currency.chart}
+                        alt={`${currency.symbol} chart`}
+                        width={64}
+                        height={40}
+                        className="w-full h-full object-contain min-w-[120px]"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )))}
+          </div>
+
           {/* Crypto List */}
           <div className="space-y-4">
             {loading ? (
@@ -89,21 +174,34 @@ export function CryptoPriceList() {
                 className="bg-background/80 backdrop-blur-md border border-gold/30 rounded-lg p-2 hover:bg-gold/5 transition-colors"
               >
                 <div className="flex items-center justify-between">
-                  {/* Left side - Icon, Short Name, Price */}
+                  {/* Left side - Icon, Name */}
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10">
-                      <Image 
-                        src={crypto.icon}
-                        alt={`${crypto.symbol} icon`}
-                        width={32}
-                        height={32}
-                        className="w-full h-full object-contain"
-                      />
+                      {crypto.icon ? (
+                        <Image 
+                          src={crypto.icon}
+                          alt={`${crypto.symbol} icon`}
+                          width={32}
+                          height={32}
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gold/20 rounded-full flex items-center justify-center">
+                          <span className="text-gold font-bold text-sm">
+                            {crypto.name?.charAt(0)?.toUpperCase() || 'C'}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div>
                       <div className="font-bold text-foreground text-lg">
-                        {crypto.name} ({crypto.shortName})
+                        {crypto.name}
                       </div>
+                      {crypto.shortName && (
+                        <div className="text-sm text-foreground/70">
+                          {crypto.shortName}
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -126,6 +224,8 @@ export function CryptoPriceList() {
               </div>
             )))}
           </div>
+
+    
         </div>
       </div>
     </section>

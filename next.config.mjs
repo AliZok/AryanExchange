@@ -10,6 +10,11 @@ const nextConfig = {
         hostname: 'cryptologos.cc',
         pathname: '/logos/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'thumbs.dreamstime.com',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config) => {
