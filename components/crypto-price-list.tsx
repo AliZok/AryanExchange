@@ -40,7 +40,7 @@ export function CryptoPriceList() {
             name_farsi: currency.name_farsi,
             name_english: currency.name_english,
             shortName: currency.code || '',
-            price: currency.price || "Price not available",
+            price: currency.price && !isNaN(currency.price) ? Number(currency.price).toLocaleString() : "Price not available",
             icon: currency.image,
             chart: "/chart-to-top.png"
           }))
@@ -95,11 +95,10 @@ export function CryptoPriceList() {
          
             {loading ? (
               <div className="text-center py-4 text-gold">
-                {language === "fa" ? "در حال بارگذاری..." : "Loading..."}
+              
               </div>
             ) : currenciesData.length === 0 ? (
               <div className="text-center py-4 text-gold">
-                {language === "fa" ? "ارزی یافت نشد" : "No currencies found"}
               </div>
             ) : (
               currenciesData.map((currency) => (
