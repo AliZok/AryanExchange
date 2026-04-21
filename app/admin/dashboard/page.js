@@ -12,12 +12,11 @@ export default function AdminDashboard() {
   const [editingCurrency, setEditingCurrency] = useState(null);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [newCurrency, setNewCurrency] = useState({
-    name: '',
+    name_farsi: '',
+    name_english: '',
     symbol: '',
     image: '',
-    buy_price: 0,
-    price: 0,
-    sell_price: 0
+    price: 0
   });
   const router = useRouter();
 
@@ -109,8 +108,7 @@ export default function AdminDashboard() {
         const { error } = await supabase
           .from('currencies')
           .update({
-            buy_price: price.buy_price || price.buyPrice,
-            sell_price: price.sell_price || price.sellPrice,
+            price: price.price,
             updated_at: new Date().toISOString()
           })
           .eq('id', price.id);
@@ -173,8 +171,8 @@ export default function AdminDashboard() {
   };
 
   const createCurrency = async () => {
-    if (!newCurrency.name || !newCurrency.symbol) {
-      alert('لطفاً نام و نماد ارز را وارد کنید');
+    if (!newCurrency.name_farsi || !newCurrency.name_english || !newCurrency.symbol) {
+      alert('لطفاً نام فارسی، نام انگلیسی و نماد ارز را وارد کنید');
       return;
     }
 
@@ -185,18 +183,17 @@ export default function AdminDashboard() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: newCurrency.name,
+          name_farsi: newCurrency.name_farsi,
+          name_english: newCurrency.name_english,
           symbol: newCurrency.symbol,
           image: newCurrency.image,
-          price: newCurrency.price,
-          buy_price: newCurrency.buy_price,
-          sell_price: newCurrency.sell_price
+          price: newCurrency.price
         }),
       });
 
       if (response.ok) {
         alert('ارز با موفقیت ایجاد شد');
-        setNewCurrency({ name: '', symbol: '', image: '', price: 0, buy_price: 0, sell_price: 0 });
+        setNewCurrency({ name_farsi: '', name_english: '', symbol: '', image: '', price: 0 });
         setShowCreateForm(false);
         loadDashboardData();
       } else {
@@ -355,13 +352,23 @@ export default function AdminDashboard() {
                     <h4 className="font-bold text-lg mb-4 text-blue-900">ایجاد ارز جدید</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">نام ارز</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">نام فارسی ارز</label>
                         <input
                           type="text"
-                          value={newCurrency.name}
-                          onChange={(e) => setNewCurrency({...newCurrency, name: e.target.value})}
+                          value={newCurrency.name_farsi}
+                          onChange={(e) => setNewCurrency({...newCurrency, name_farsi: e.target.value})}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           placeholder="مثال: بیت‌کوین"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">نام انگلیسی ارز</label>
+                        <input
+                          type="text"
+                          value={newCurrency.name_english}
+                          onChange={(e) => setNewCurrency({...newCurrency, name_english: e.target.value})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                          placeholder="مثال: Bitcoin"
                         />
                       </div>
                       <div>
@@ -385,31 +392,11 @@ export default function AdminDashboard() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت اصلی (تومان)</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت (تومان)</label>
                         <input
                           type="number"
                           value={newCurrency.price}
                           onChange={(e) => setNewCurrency({...newCurrency, price: parseFloat(e.target.value) || 0})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                          step="0.01"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت خرید (تومان)</label>
-                        <input
-                          type="number"
-                          value={newCurrency.buy_price}
-                          onChange={(e) => setNewCurrency({...newCurrency, buy_price: parseFloat(e.target.value) || 0})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                          step="0.01"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">قیمت فروش (تومان)</label>
-                        <input
-                          type="number"
-                          value={newCurrency.sell_price}
-                          onChange={(e) => setNewCurrency({...newCurrency, sell_price: parseFloat(e.target.value) || 0})}
                           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                           step="0.01"
                         />
@@ -419,7 +406,7 @@ export default function AdminDashboard() {
                       <button
                         onClick={() => {
                           setShowCreateForm(false);
-                          setNewCurrency({ name: '', symbol: '', image: '', price: 0, buy_price: 0, sell_price: 0 });
+                          setNewCurrency({ name_farsi: '', name_english: '', symbol: '', image: '', price: 0 });
                         }}
                         className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                       >
@@ -458,11 +445,20 @@ export default function AdminDashboard() {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">نام ارز</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">نام فارسی ارز</label>
                                 <input
                                   type="text"
-                                  value={currency.name}
-                                  onChange={(e) => updatePrice(currency.id, 'name', e.target.value)}
+                                  value={currency.name_farsi || ''}
+                                  onChange={(e) => updatePrice(currency.id, 'name_farsi', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">نام انگلیسی ارز</label>
+                                <input
+                                  type="text"
+                                  value={currency.name_english || ''}
+                                  onChange={(e) => updatePrice(currency.id, 'name_english', e.target.value)}
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                                 />
                               </div>
@@ -485,31 +481,11 @@ export default function AdminDashboard() {
                                 />
                               </div>
                               <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت اصلی (تومان)</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت (تومان)</label>
                                 <input
                                   type="number"
                                   value={currency.price || 0}
                                   onChange={(e) => updatePrice(currency.id, 'price', parseFloat(e.target.value))}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                                  step="0.01"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت خرید (تومان)</label>
-                                <input
-                                  type="number"
-                                  value={currency.buy_price || currency.buyPrice || 0}
-                                  onChange={(e) => updatePrice(currency.id, 'buy_price', parseFloat(e.target.value))}
-                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-                                  step="0.01"
-                                />
-                              </div>
-                              <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">قیمت فروش (تومان)</label>
-                                <input
-                                  type="number"
-                                  value={currency.sell_price || currency.sellPrice || 0}
-                                  onChange={(e) => updatePrice(currency.id, 'sell_price', parseFloat(e.target.value))}
                                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                                   step="0.01"
                                 />
@@ -524,12 +500,11 @@ export default function AdminDashboard() {
                               </button>
                               <button
                                 onClick={() => updateCurrency(currency.id, {
-                                  name: currency.name,
+                                  name_farsi: currency.name_farsi,
+                                  name_english: currency.name_english,
                                   symbol: currency.symbol,
                                   image: currency.image,
-                                  price: currency.price || 0,
-                                  buy_price: currency.buy_price || currency.buyPrice,
-                                  sell_price: currency.sell_price || currency.sellPrice
+                                  price: currency.price || 0
                                 })}
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                               >
@@ -551,7 +526,8 @@ export default function AdminDashboard() {
                                   />
                                 )}
                                 <div>
-                                  <span className="font-bold text-lg text-gray-900">{currency.name || currency.currency}</span>
+                                  <span className="font-bold text-lg text-gray-900">{currency.name_farsi || currency.name || currency.currency}</span>
+                                  <span className="text-sm text-gray-500 mr-2">{currency.name_english}</span>
                                   <span className="text-sm text-gray-500 mr-2">{currency.symbol}</span>
                                 </div>
                               </div>
@@ -561,25 +537,11 @@ export default function AdminDashboard() {
                                 </span>
                               </div>
                             </div>
-                            <div className="grid grid-cols-3 gap-4 mb-3">
-                              <div className="bg-white p-3 rounded border">
-                                <p className="text-xs text-gray-600 mb-1">قیمت اصلی</p>
-                                <p className="text-lg font-bold text-blue-600">
-                                  {(currency.price || 0).toLocaleString('fa-IR')}
-                                </p>
-                              </div>
-                              <div className="bg-white p-3 rounded border">
-                                <p className="text-xs text-gray-600 mb-1">قیمت خرید</p>
-                                <p className="text-lg font-bold text-green-600">
-                                  {(currency.buy_price || currency.buyPrice || 0).toLocaleString('fa-IR')}
-                                </p>
-                              </div>
-                              <div className="bg-white p-3 rounded border">
-                                <p className="text-xs text-gray-600 mb-1">قیمت فروش</p>
-                                <p className="text-lg font-bold text-red-600">
-                                  {(currency.sell_price || currency.sellPrice || 0).toLocaleString('fa-IR')}
-                                </p>
-                              </div>
+                            <div className="bg-white p-3 rounded border">
+                              <p className="text-xs text-gray-600 mb-1">قیمت</p>
+                              <p className="text-lg font-bold text-blue-600">
+                                {(currency.price || 0).toLocaleString('fa-IR')}
+                              </p>
                             </div>
                             <div className="flex justify-end space-x-2 space-x-reverse">
                               <button
