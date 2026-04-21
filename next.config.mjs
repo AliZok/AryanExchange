@@ -20,6 +20,11 @@ const nextConfig = {
         hostname: 'static.vecteezy.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.vectorstock.com',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config) => {
