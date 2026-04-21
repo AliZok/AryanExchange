@@ -15,6 +15,11 @@ const nextConfig = {
         hostname: 'thumbs.dreamstime.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'static.vecteezy.com',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config) => {
