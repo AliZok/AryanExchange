@@ -93,14 +93,7 @@ export function CryptoPriceList() {
                 {/* Currencies List */}
           <div className="space-y-4 mt-8 mb-3">
          
-            {loading ? (
-              <div className="text-center py-4 text-gold">
-              
-              </div>
-            ) : currenciesData.length === 0 ? (
-              <div className="text-center py-4 text-gold">
-              </div>
-            ) : (
+            {
               currenciesData.map((currency) => (
               <div 
                 key={currency.symbol}
@@ -161,7 +154,7 @@ export function CryptoPriceList() {
                   </div>
                 </div>
               </div>
-            )))}
+            ))}
           </div>
 
           {/* Crypto List */}
