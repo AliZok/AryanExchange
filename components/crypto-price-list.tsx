@@ -41,6 +41,8 @@ export function CryptoPriceList() {
             name: currency.name,
             name_farsi: currency.name_farsi,
             name_english: currency.name_english,
+            unit_farsi: currency.unit_farsi,
+            unit_english: currency.unit_english,
             shortName: currency.code || '',
             price: currency.price && !isNaN(currency.price) ? Number(currency.price).toLocaleString() : "Price not available",
             icon: currency.image,
@@ -141,7 +143,7 @@ export function CryptoPriceList() {
 
                     <div className="text-right">
                       <div className="font-bold text-foreground text-md !leading-[1]">
-                        {currency.price}
+                        {currency.price} <span style={{ fontSize: '11px' }}>{language === "fa" ? (currency.unit_farsi || '') : (currency.unit_english || '')}</span>
                       </div>
 
                       <div className="">
