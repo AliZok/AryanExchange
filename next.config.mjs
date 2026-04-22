@@ -25,6 +25,11 @@ const nextConfig = {
         hostname: 'cdn.vectorstock.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'pngimg.com',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (config) => {
