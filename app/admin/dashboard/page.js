@@ -577,7 +577,7 @@ export default function AdminDashboard() {
                               </div>
                               <div className="flex items-center space-x-2">
                                 <span className="text-sm text-gray-500">
-                                  آخرین به‌روزرسانی: {new Date(currency.updated_at || currency.lastUpdate).toLocaleString('fa-IR')}
+                                  بروزرسانی: {new Date(currency.updated_at || currency.lastUpdate).toLocaleString('fa-IR')}
                                 </span>
                               </div>
                             </div>

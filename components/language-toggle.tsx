@@ -16,7 +16,7 @@ export function LanguageToggle() {
     >
       <Languages className="w-4 h-4" />
       <span className="hidden sm:inline">
-        {language === "en" ? "فارسی" : "English"}
+        {language === "en" ? "Fa" : "En"}
       </span>
       <span className="sm:hidden">
         {language === "en" ? "FA" : "EN"}
