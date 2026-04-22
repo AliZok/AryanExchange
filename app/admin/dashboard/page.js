@@ -381,7 +381,7 @@ export default function AdminDashboard() {
               <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-white flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
+                  
                     مدیریت ارزها
                   </h3>
                   <button
@@ -476,7 +476,7 @@ export default function AdminDashboard() {
                         />
                       </div>
                     </div>
-                    <div className="mt-8 flex justify-end space-x-6 space-x-reverse">
+                    <div className="mt-8 flex justify-end gap-2">
                       <button
                         onClick={() => {
                           setShowCreateForm(false);
@@ -596,7 +596,7 @@ export default function AdminDashboard() {
                                 />
                               </div>
                             </div>
-                            <div className="mt-8 flex justify-end space-x-6 space-x-reverse">
+                            <div className="mt-8 flex justify-end gap-2">
                               <button
                                 onClick={() => setEditingCurrency(null)}
                                 className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg text-sm font-medium transition-all shadow-sm hover:shadow-md"
@@ -694,7 +694,7 @@ export default function AdminDashboard() {
               <div className="bg-gradient-to-r from-green-600 to-green-700 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-bold text-white flex items-center">
-                    <div className="w-2 h-2 bg-white rounded-full mr-2"></div>
+                    
                     پیام‌های کاربران
                   </h3>
                   <div className="flex items-center space-x-2">
@@ -705,7 +705,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
               <div className="px-6 py-5">
-                <div className="space-y-4 max-h-96 overflow-y-auto">
+                <div className="space-y-4">
                   {messages.length === 0 ? (
                     <div className="text-center py-12 text-gray-500">
                       <svg className="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
