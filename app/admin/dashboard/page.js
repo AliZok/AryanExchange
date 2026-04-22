@@ -476,7 +476,7 @@ export default function AdminDashboard() {
                         />
                       </div>
                     </div>
-                    <div className="mt-8 flex justify-end space-x-4 space-x-reverse">
+                    <div className="mt-8 flex justify-end space-x-6 space-x-reverse">
                       <button
                         onClick={() => {
                           setShowCreateForm(false);
@@ -596,7 +596,7 @@ export default function AdminDashboard() {
                                 />
                               </div>
                             </div>
-                            <div className="mt-8 flex justify-end space-x-4 space-x-reverse">
+                            <div className="mt-8 flex justify-end space-x-6 space-x-reverse">
                               <button
                                 onClick={() => setEditingCurrency(null)}
                                 className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg text-sm font-medium transition-all shadow-sm hover:shadow-md"
@@ -623,7 +623,7 @@ export default function AdminDashboard() {
                           // View Mode
                           <div>
                             <div className="flex items-start justify-between mb-6">
-                              <div className="flex items-center space-x-4 space-x-reverse">
+                              <div className="flex items-center gap-2">
                                 {currency.image ? (
                                   <img 
                                     src={currency.image} 
@@ -640,13 +640,13 @@ export default function AdminDashboard() {
                                 </div>
                                 <div>
                                   <h4 className="font-bold text-xl text-gray-900 mb-1">{currency.name_farsi || currency.name || currency.currency}</h4>
-                                  <div className="flex items-center space-x-3 space-x-reverse text-sm text-gray-500">
+                                  <div className="flex items-center gap-2 text-sm text-gray-500">
                                     <span className="bg-gray-100 px-2 py-1 rounded-md font-medium">{currency.name_english}</span>
                                     <span className="bg-gray-100 px-2 py-1 rounded-md font-medium">{currency.symbol}</span>
                                   </div>
                                 </div>
                               </div>
-                              <div className="text-left">
+                              <div className="text-right">
                                 <span className="text-xs text-gray-500 block mb-1">آخرین بروزرسانی</span>
                                 <span className="text-sm text-gray-600">
                                   {new Date(currency.updated_at || currency.lastUpdate).toLocaleString('fa-IR')}
@@ -659,7 +659,7 @@ export default function AdminDashboard() {
                                 {(currency.price || 0).toLocaleString('fa-IR')} <span className="text-lg font-normal">{currency.unit_farsi || ''}</span>
                               </p>
                             </div>
-                            <div className="flex justify-end space-x-3 space-x-reverse mt-6">
+                            <div className="flex justify-end gap-2 mt-6">
                               <button
                                 onClick={() => setEditingCurrency(currency.id)}
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all shadow-sm hover:shadow-md flex items-center space-x-2 space-x-reverse"
@@ -720,10 +720,8 @@ export default function AdminDashboard() {
                       }`}>
                         <div className="flex items-start justify-between mb-3">
                           <div className="flex-1">
-                            <div className="flex items-center space-x-3 space-x-reverse mb-2">
-                              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold">
-                                {(message.name || 'ن')[0]}
-                              </div>
+                            <div className="flex items-center gap-2 mb-2">
+
                               <div>
                                 <span className="font-semibold text-gray-900 text-lg">{message.name || 'نامشخص'}</span>
                                 <div className="text-sm text-gray-500">{message.email || 'ایمیل ثبت نشده'}</div>
@@ -748,7 +746,7 @@ export default function AdminDashboard() {
                             {message.message || message.content}
                           </p>
                         </div>
-                        <div className="flex space-x-3 space-x-reverse">
+                        <div className="flex gap-2">
                           {message.status === 'unread' && (
                             <button 
                               onClick={() => markMessageAsRead(message.id)}
