@@ -30,6 +30,11 @@ const nextConfig = {
         hostname: 'pngimg.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'vrbkcxugyiecbgmxkftg.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
   webpack: (config) => {
