@@ -16,7 +16,9 @@ export default function AdminDashboard() {
     name_english: '',
     symbol: '',
     image: '',
-    price: 0
+    price: 0,
+    unit_farsi: 'تومان',
+    unit_english: 'Toman'
   });
   const router = useRouter();
 
@@ -187,13 +189,15 @@ export default function AdminDashboard() {
           name_english: newCurrency.name_english,
           symbol: newCurrency.symbol,
           image: newCurrency.image,
-          price: newCurrency.price
+          price: newCurrency.price,
+          unit_farsi: newCurrency.unit_farsi,
+          unit_english: newCurrency.unit_english
         }),
       });
 
       if (response.ok) {
         alert('ارز با موفقیت ایجاد شد');
-        setNewCurrency({ name_farsi: '', name_english: '', symbol: '', image: '', price: 0 });
+        setNewCurrency({ name_farsi: '', name_english: '', symbol: '', image: '', price: 0, unit_farsi: 'تومان', unit_english: 'Toman' });
         setShowCreateForm(false);
         loadDashboardData();
       } else {
@@ -401,12 +405,32 @@ export default function AdminDashboard() {
                           step="0.01"
                         />
                       </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">واحد فارسی</label>
+                        <input
+                          type="text"
+                          value={newCurrency.unit_farsi}
+                          onChange={(e) => setNewCurrency({...newCurrency, unit_farsi: e.target.value})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                          placeholder="مثال: تومان"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">واحد انگلیسی</label>
+                        <input
+                          type="text"
+                          value={newCurrency.unit_english}
+                          onChange={(e) => setNewCurrency({...newCurrency, unit_english: e.target.value})}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                          placeholder="مثال: Toman"
+                        />
+                      </div>
                     </div>
                     <div className="mt-4 flex justify-end space-x-2 space-x-reverse">
                       <button
                         onClick={() => {
                           setShowCreateForm(false);
-                          setNewCurrency({ name_farsi: '', name_english: '', symbol: '', image: '', price: 0 });
+                          setNewCurrency({ name_farsi: '', name_english: '', symbol: '', image: '', price: 0, unit_farsi: 'toman', unit_english: 'Toman' });
                         }}
                         className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                       >
@@ -490,6 +514,24 @@ export default function AdminDashboard() {
                                   step="0.01"
                                 />
                               </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">واحد فارسی</label>
+                                <input
+                                  type="text"
+                                  value={currency.unit_farsi || ''}
+                                  onChange={(e) => updatePrice(currency.id, 'unit_farsi', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                                />
+                              </div>
+                              <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">واحد انگلیسی</label>
+                                <input
+                                  type="text"
+                                  value={currency.unit_english || ''}
+                                  onChange={(e) => updatePrice(currency.id, 'unit_english', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                                />
+                              </div>
                             </div>
                             <div className="mt-4 flex justify-end space-x-2 space-x-reverse">
                               <button
@@ -504,7 +546,9 @@ export default function AdminDashboard() {
                                   name_english: currency.name_english,
                                   symbol: currency.symbol,
                                   image: currency.image,
-                                  price: currency.price || 0
+                                  price: currency.price || 0,
+                                  unit_farsi: currency.unit_farsi,
+                                  unit_english: currency.unit_english
                                 })}
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                               >
@@ -540,7 +584,7 @@ export default function AdminDashboard() {
                             <div className="bg-white p-3 rounded border">
                               <p className="text-xs text-gray-600 mb-1">قیمت</p>
                               <p className="text-lg font-bold text-blue-600">
-                                {(currency.price || 0).toLocaleString('fa-IR')}
+                                {(currency.price || 0).toLocaleString('fa-IR')} {currency.unit_farsi || ''}
                               </p>
                             </div>
                             <div className="flex justify-end space-x-2 space-x-reverse">
