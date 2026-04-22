@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../../supabase.js';
+import ImageUpload from '../../../components/image-upload';
 
 export default function AdminDashboard() {
   const [prices, setPrices] = useState([]);
@@ -436,14 +437,18 @@ export default function AdminDashboard() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <label className="block text-sm font-semibold text-gray-700">آدرس تصویر</label>
-                        <input
-                          type="text"
-                          value={newCurrency.image}
-                          onChange={(e) => setNewCurrency({...newCurrency, image: e.target.value})}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 transition-all"
-                          placeholder="https://example.com/image.png"
+                        <ImageUpload 
+                          currentImage={newCurrency.image}
+                          onImageUploaded={(url) => setNewCurrency({...newCurrency, image: url})}
                         />
+                        {newCurrency.image && (
+                          <div className="mt-2">
+                            <label className="block text-xs font-medium text-gray-500 mb-1">آدرس تصویر:</label>
+                            <div className="p-2 bg-gray-50 rounded border border-gray-200">
+                              <p className="text-xs text-gray-600 break-all">{newCurrency.image}</p>
+                            </div>
+                          </div>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <label className="block text-sm font-semibold text-gray-700">قیمت (تومان)</label>
@@ -559,13 +564,18 @@ export default function AdminDashboard() {
                                 />
                               </div>
                               <div className="space-y-2">
-                                <label className="block text-sm font-semibold text-gray-700">آدرس تصویر</label>
-                                <input
-                                  type="text"
-                                  value={currency.image || ''}
-                                  onChange={(e) => updatePrice(currency.id, 'image', e.target.value)}
-                                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 transition-all"
+                                <ImageUpload 
+                                  currentImage={currency.image}
+                                  onImageUploaded={(url) => updatePrice(currency.id, 'image', url)}
                                 />
+                                {currency.image && (
+                                  <div className="mt-2">
+                                    <label className="block text-xs font-medium text-gray-500 mb-1">آدرس تصویر:</label>
+                                    <div className="p-2 bg-gray-50 rounded border border-gray-200">
+                                      <p className="text-xs text-gray-600 break-all">{currency.image}</p>
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                               <div className="space-y-2">
                                 <label className="block text-sm font-semibold text-gray-700">قیمت (تومان)</label>
