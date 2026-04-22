@@ -73,12 +73,16 @@ export function CryptoPriceList() {
 
   return (
     <section className="relative py-16">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background/95" />
+      {/* Background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/back.png')"
+        }}
+      />
 
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-gold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+      {/* Overlay for better text visibility */}
+      <div className="absolute inset-0 bg-black/40" />
 
       <div className="relative z-10 container mx-auto px-4">
         <div className="max-w-md mx-auto">
