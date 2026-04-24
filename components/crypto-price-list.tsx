@@ -12,7 +12,8 @@ export function CryptoPriceList() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchData = async () => {
+    // Initial fetch - get both crypto and currencies
+    const fetchInitialData = async () => {
       try {
         // Fetch crypto prices
         const cryptoResponse = await fetch('/api/crypto-prices')
@@ -32,7 +33,7 @@ export function CryptoPriceList() {
           setCryptoData(transformedCryptoData)
         }
 
-        // Fetch currencies
+        // Fetch currencies - only on initial load
         const currenciesResponse = await fetch('/api/currencies')
         if (currenciesResponse.ok) {
           const currenciesResult = await currenciesResponse.json()
@@ -51,7 +52,7 @@ export function CryptoPriceList() {
           setCurrenciesData(transformedCurrencies)
         }
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('Error fetching initial data:', error)
         // Fallback to default data if API fails
         setCryptoData([
           {
@@ -68,7 +69,36 @@ export function CryptoPriceList() {
       }
     }
 
-    fetchData()
+    // Interval fetch - only crypto prices
+    const fetchCryptoOnly = async () => {
+      try {
+        const cryptoResponse = await fetch('/api/crypto-prices')
+        if (cryptoResponse.ok) {
+          const cryptoResult = await cryptoResponse.json()
+          const transformedCryptoData = cryptoResult.data.map(crypto => ({
+            symbol: crypto.symbol,
+            name: language === "fa" ? crypto.name_fa : crypto.name,
+            shortName: crypto.symbol,
+            price: crypto.price_usd ? `$${crypto.price_usd.toLocaleString()}` : "Price not available",
+            icon: crypto.icon,
+            chart: crypto.symbol === "USDT"
+              ? "/flat.PNG"
+              : (crypto.change_24h >= 0 ? "/chart-to-top.png" : "/chart-to-bot-2.png"),
+            change: crypto.change_24h
+          }))
+          setCryptoData(transformedCryptoData)
+        }
+      } catch (error) {
+        console.error('Error fetching crypto data:', error)
+      }
+    }
+
+    // Run initial fetch
+    fetchInitialData()
+    
+    // Set up interval for crypto-only updates
+    const interval = setInterval(fetchCryptoOnly, 10000) // Update every 8 seconds
+    return () => clearInterval(interval)
   }, [language])
 
   return (
@@ -173,7 +203,7 @@ export function CryptoPriceList() {
               </div>
             ) : cryptoData.length === 0 ? (
               <div className="text-center py-8 text-gold">
-                {language === "fa" ? "ارزی یافت نشد" : "No currencies found"}
+                {language === "fa" ? "در تلاش برای قیمت های کریپنو" : "Trying currencies found"}
               </div>
             ) : (
               cryptoData.map((crypto) => (
