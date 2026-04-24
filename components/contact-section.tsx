@@ -38,7 +38,7 @@ const content = {
       email: "ArianExchange2026@gmail.com",
       phone: "+37493887915",
       address: "ایروان - خیابان یکمالیان، شماره 1",
-      hours: "شنبه تا پنج‌شنبه: ۱۰ صبح تا ۹ شب، جمعه: ۱۱ صبح تا ۶ عصر",
+      hours: "دوشنبه تا جمعه۱۰ تا ۲۱ و شنبه ۱۱ تا ۱۸",
       onlineSupport: "پاسخگویی ۲۴ ساعته"
     },
     form: {
