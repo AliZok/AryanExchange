@@ -72,7 +72,7 @@ export function CryptoPriceList() {
   }, [language])
 
   return (
-    <section className="relative py-16">
+    <section id="prices" className="relative py-16">
       {/* Background image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -88,7 +88,7 @@ export function CryptoPriceList() {
         <div className="max-w-md mx-auto">
           {/* Title */}
           <h2
-            className="text-2xl font-bold text-center mb-8 text-gold"
+            className="text-2xl pt-2 font-bold text-center mb-8 text-gold"
             style={{
               fontFamily: language === "fa"
                 ? "'IranSans', 'Tahoma', 'Arial', sans-serif"
