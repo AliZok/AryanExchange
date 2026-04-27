@@ -18,6 +18,28 @@ export const metadata: Metadata = {
   title: 'صرافی آرین | Aryan Exchange',
   description: 'Currency exchange, digital currency trading, money transfer & VISA card services',
   generator: 'v0.app',
+  openGraph: {
+    title: 'صرافی آرین | Aryan Exchange',
+    description: 'ارز دیجیتال، صرافی آنلاین، انتقال پول و کارت ویزا - خدمات جامع مالی در آرین اکسچنج',
+    url: 'https://aryan-exchange.com',
+    siteName: 'صرافی آرین',
+    images: [
+      {
+        url: '/aryan-exchange-logo-square.png',
+        width: 1200,
+        height: 1200,
+        alt: 'صرافی آرین | Aryan Exchange',
+      },
+    ],
+    locale: 'fa_IR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'صرافی آرین | Aryan Exchange',
+    description: 'ارز دیجیتال، صرافی آنلاین، انتقال پول و کارت ویزا - خدمات جامع مالی در آرین اکسچنج',
+    images: ['/aryan-exchange-logo-square.png'],
+  },
   icons: {
     icon: [
       {
